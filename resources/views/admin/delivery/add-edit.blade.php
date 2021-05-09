@@ -49,7 +49,7 @@
                 @endif>
               </div>
               <div class="form-group">
-                <label for="deliveryCharges">Delivery Charges</label>
+                <label for="deliveryCharges">Delivery Charges({{settings('site_currency')}})</label>
                 <input type="text" id="deliveryCharges" name="delivery_charges" class="form-control" @if (!empty($deliveryChargesData->delivery_charges))
                   value="{{$deliveryChargesData->delivery_charges}}"  
                   @else

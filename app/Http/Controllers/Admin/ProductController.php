@@ -114,10 +114,11 @@ class ProductController extends Controller
             $rule=[
                 'product_name'=>'required|regex:/^[A-Za-z- ]+$/',
                 'product_code'=>'required|regex:/^[a-zA-Z0-9\s-]+$/|unique:products,product_code,'.(!empty($productData->id)?$productData->id:''),
-                'product_price'=>'required|numeric',
-                'product_weight'=>'required|numeric',
+                'product_price'=>'required|numeric|min:.1',
+                'product_discount'=>'nullable|numeric|min:.1',
+                'product_weight'=>'required|numeric|min:.1',
                 'product_color'=>'required|regex:/^[A-Za-z- ]+$/',
-                'category_id'=>'required|numeric',
+                'category_id'=>'required|numeric|min:1',
                 'product_image'=>'image|mimes:jpeg,jpg,png',
                 'url'=>'required|regex:/^[A-Za-z-]+$/|unique:products,url,'.(isset($productData->id)&&!empty($productData)?$productData->id:''),
                 // 'url'=>['required','regex:/^[A-Za-z-]+$/',Rule::unique('products')->where(function($query) use ($data,$productData,$categoryDetails){
@@ -312,6 +313,7 @@ class ProductController extends Controller
                     $attribute->sku=$value;
                     $attribute->price=$data['price'][$key];
                     $attribute->stock=$data['stock'][$key];
+                    $attribute->weight=$data['weight'][$key];
                     $attribute->save();
                 }
             }
@@ -325,8 +327,7 @@ class ProductController extends Controller
              $data=$request->all();
              foreach ($data['attrId'] as $key => $value) {
                  if (!empty($value)) {
-                     ProductAttribute::where('id',$value)->update(['price'=>$data['price'][$key],'stock'=>$data['stock'][$key]]);
-                     
+                     ProductAttribute::where('id',$value)->update(['price'=>$data['price'][$key],'stock'=>$data['stock'][$key],'weight'=>$data['weight'][$key]]);
                  }
              }
              Session::flash('success_msg','Product Attribute has been Updated');

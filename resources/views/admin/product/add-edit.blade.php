@@ -74,7 +74,7 @@
                     @endif>
                   </div>
                   <div class="form-group">
-                    <label for="productWeight">Product Weight</label>
+                    <label for="productWeight">Product Weight(g)</label>
                     <input type="text" id="productWeight" class="form-control" name="product_weight" placeholder="Enter Product Weight" @if (!empty($productData->product_weight))
                       value="{{$productData->product_weight}}"  
                     @else
@@ -83,7 +83,7 @@
                   </div>
                  
                   <div class="form-group">
-                    <label for="productPrice">Product Price</label>
+                    <label for="productPrice">Product Price({{settings('site_currency')}})</label>
                     <input type="text" id="productPrice" class="form-control" name="product_price" placeholder="Enter Product Price" @if (!empty($productData->product_price))
                     value="{{$productData->product_price}}"  
                   @else

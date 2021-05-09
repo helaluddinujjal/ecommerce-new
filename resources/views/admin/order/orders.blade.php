@@ -65,7 +65,7 @@
                             @endforeach  
                         @endif    
                         </td>
-                        <td>$ {{$order->total}}</td>
+                        <td> {{$order->currency.$order->total}}</td>
                         <td><span class="badge badge-info">{{$order->order_status}}</span></td>
                         <td> {{$order->delivery_method}}</td>
                         <td>

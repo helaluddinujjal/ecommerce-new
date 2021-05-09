@@ -8,7 +8,7 @@
       <a href="{{url('admin/dashboard')}}" class="nav-link">Home</a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="{{url('admin/settings')}}" class="nav-link">Admin Settings</a>
+      <a href="{{url('admin/account-settings')}}" class="nav-link">Profile Settings</a>
     </li>
   </ul>
 

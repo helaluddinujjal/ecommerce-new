@@ -94,7 +94,7 @@
                 <span>
                   <input type="radio" id="usd" name="amount_type" value="USD"  @if (!empty($couponData->amount_type) && $couponData->amount_type=="USD")
                   checked="checked"  
-                @endif> <label for="usd">USD ($)</label>
+                @endif> <label for="usd">Currency({{settings('site_currency')}})</label>
                 </span>
               </div>
               <div class="form-group">

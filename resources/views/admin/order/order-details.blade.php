@@ -42,7 +42,7 @@
                   </tr>
                   <tr>
                     <th>Total</th>
-                    <td>{{$orderDetails->total}}</td>
+                    <td>{{$orderDetails->currency}}{{$orderDetails->total}}</td>
                   </tr>
                   <tr>
                     <th>Coupon Code</th>
@@ -50,7 +50,9 @@
                   </tr>
                   <tr>
                     <th>Coupon Amount</th>
-                    <td>{{$orderDetails->coupon_amount}}</td>
+                    <td>@if (!is_null($orderDetails->coupon_amount))
+                      {{$orderDetails->currency}}{{$orderDetails->coupon_amount}}
+                    @endif</td>
                   </tr>
                   <tr>
                     <th>Delivery Method</th>
@@ -69,10 +71,12 @@
                         </td> 
                     @endif
                   </tr>
-                  <tr>
-                    <th>Delivery Charges</th>
-                    <td>{{$orderDetails->delivery_charges}}</td>
-                  </tr>
+                  @if ($orderDetails->delivery_method=="Flat Rate")
+                    <tr>
+                      <th>Delivery Charges</th>
+                      <td>{{$orderDetails->currency}}{{$orderDetails->delivery_charges}}</td>
+                    </tr>
+                  @endif
                   <tr>
                     <th>Payment Method</th>
                     <td>{{$orderDetails->payment_method}}</td>
@@ -201,9 +205,9 @@
                       </td>
                       <td><a href="{{url('product/'.$productData->url)}}">{{$product->product_name}}</a><br><small>Product Code: <strong>{{$product->product_code}}</strong></small> <br><small>Size: <strong>{{$product->product_size}}</strong></small> | <small>color: <strong>{{$product->product_color}}</strong></small></td>
                       <td>{{$product->product_qty}}</td>
-                      <td>${{$product->product_unit_price}}</td>
-                      <td>${{ $product->product_unit_price-$product->product_discount_price}}*{{$product->product_qty}}=${{($product->product_unit_price-$product->product_discount_price)*$product->product_qty}}</td>
-                      <td>${{$product->product_discount_price}}</td>
+                      <td>{{$orderDetails->currency}}{{$product->product_unit_price}}</td>
+                      <td>{{$orderDetails->currency}}{{ $product->product_unit_price-$product->product_discount_price}}*{{$product->product_qty}}={{$orderDetails->currency}}{{($product->product_unit_price-$product->product_discount_price)*$product->product_qty}}</td>
+                      <td>{{$orderDetails->currency}}{{$product->product_discount_price}}</td>
                     </tr>
                     @php
                         $totalPrice=$totalPrice+$product->product_discount_price;

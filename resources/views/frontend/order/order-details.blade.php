@@ -58,9 +58,9 @@
                         </td>
                         <td><a href="{{url('product/'.$productData->url)}}">{{$product->product_name}}</a><br><small>Product Code: <strong>{{$product->product_code}}</strong></small> <br><small>Size: <strong>{{$product->product_size}}</strong></small> | <small>color: <strong>{{$product->product_color}}</strong></small></td>
                         <td>{{$product->product_qty}}</td>
-                        <td>${{$product->product_unit_price}}</td>
-                        <td>${{ $product->product_unit_price-$product->product_discount_price}}*{{$product->product_qty}}=${{($product->product_unit_price-$product->product_discount_price)*$product->product_qty}}</td>
-                        <td>${{$product->product_discount_price*$product->product_qty}}</td>
+                        <td>{{$orderDetails->currency}}{{$product->product_unit_price}}</td>
+                        <td>{{$orderDetails->currency}}{{ $product->product_unit_price-$product->product_discount_price}}*{{$product->product_qty}}={{$orderDetails->currency}}{{($product->product_unit_price-$product->product_discount_price)*$product->product_qty}}</td>
+                        <td>{{$orderDetails->currency}}{{$product->product_discount_price*$product->product_qty}}</td>
                       </tr>
                       @php
                           $totalPrice=$totalPrice+($product->product_discount_price*$product->product_qty);
@@ -70,10 +70,26 @@
                   <tfoot>
                     <tr>
                       <th colspan="5" class="text-right">Order subtotal</th>
-                      <th>${{$totalPrice}}</th>
+                      <th>{{$orderDetails->currency}}{{$totalPrice}}</th>
+                    </tr>
+                    @if ($orderDetails->delivery_method=="Flat Rate")
+                      <tr>
+                        <th colspan="5" class="text-right">Delivery Charges (+)</th>
+                        <th>{{$orderDetails->currency}}{{$orderDetails->delivery_charges}}</th>
+                      </tr>
+                      @endif
+                    <tr>
+                      <th colspan="5" class="text-right">Coupon Discount(-)
+                        @if (!empty($orderDetails->coupon_code))
+                            <br> Coupon Code: <small>{{$orderDetails->coupon_code}}</small>
+                        @endif
+                      </th>
+                      <th>{{$orderDetails->currency}}{{!empty($orderDetails->coupon_amount)?$orderDetails->coupon_amount:0}}</th>
                     </tr>
                     <tr>
-                      <th colspan="3">Delivery Method: {{$orderDetails->delivery_method}}
+                      <th colspan="3">Payment Method: {{$orderDetails->payment_method}}
+                      <br>
+                      Delivery Method: {{$orderDetails->delivery_method}}
                       <br>
                       @if ($orderDetails->delivery_method=="Local Pickup")
                       Pickup Date and Time: {{date('d-m-Y h:i A',strtotime($orderDetails->delivery_pickup_dateTime))}} 
@@ -81,21 +97,8 @@
                         Delivery Date: {{date('d-m-Y',strtotime($orderDetails->delivery_pickup_dateTime))}} 
                       @endif
                       </th>
-                      <th colspan="2" class="text-right">Delivery Charges (+)</th>
-                      <th>${{$orderDetails->delivery_charges}}</th>
-                    </tr>
-                    <tr>
-                      <th colspan="5" class="text-right">Coupon Discount(-)
-                        @if (!empty($orderDetails->coupon_code))
-                            <br> Coupon Code: <small>{{$orderDetails->coupon_code}}</small>
-                        @endif
-                      </th>
-                      <th>${{!empty($orderDetails->coupon_amount)?$orderDetails->coupon_amount:0}}</th>
-                    </tr>
-                    <tr>
-                      <th colspan="3">Payment Method: {{$orderDetails->payment_method}}</th>
                       <th colspan="2" class="text-right">Total</th>
-                      <th>${{$totalPrice-$orderDetails->coupon_amount+$orderDetails->delivery_charges}}</th>
+                      <th>{{$orderDetails->currency}}{{$totalPrice-$orderDetails->coupon_amount+$orderDetails->delivery_charges}}</th>
                     </tr>
                   </tfoot>
                 </table>

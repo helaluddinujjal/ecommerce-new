@@ -5,6 +5,7 @@ use App\City;
 use App\Country;
 use App\OrderStatus;
 use App\Product;
+use App\SiteSetting;
 use App\State;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -84,5 +85,22 @@ function getOrderStatusName($id,$data){
             return false;
         }
         
+}
+//get Site settings data
+function settings($data){
+    $siteSetting=SiteSetting::select($data)->where('id',1)->first();
+    if (!empty($siteSetting)) {
+        return $siteSetting->$data;
+    }else{
+        if ($data=='site_currency') {
+            return "$";
+        }
+        if ($data=='delivery_charge_type') {
+            return "Country";
+        }
+        if ($data=='weight_measurement') {
+            return "g";
+        }
+    }
 }
 ?>

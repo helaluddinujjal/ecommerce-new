@@ -261,9 +261,9 @@
                                     </div>
                                 </td>
                                 <td class="qty">{{$item->product_qty}}</td>
-                                <td class="unit">${{$item->product_unit_price}}</td>
-                                <td class="qty">${{($item->product_unit_price-$item->product_discount_price)*$item->product_qty}}</td>
-                                <td class="total">${{$item->product_discount_price*$item->product_qty}}</td>
+                                <td class="unit">{{$orderDetails->currency}}{{$item->product_unit_price}}</td>
+                                <td class="qty">{{$orderDetails->currency}}{{($item->product_unit_price-$item->product_discount_price)*$item->product_qty}}</td>
+                                <td class="total">{{$orderDetails->currency}}{{$item->product_discount_price*$item->product_qty}}</td>
                             </tr>
                             @php
                                 $total=$total+($item->product_discount_price*$item->product_qty);
@@ -274,26 +274,26 @@
                         <tr>
                             <td colspan="3"></td>
                             <td colspan="2">SUBTOTAL</td>
-                            <td>${{$total}}</td>
+                            <td>{{$orderDetails->currency}}{{$total}}</td>
                         </tr>
                         @if ($orderDetails->coupon_amount>0)
                             <tr>
                                 <td colspan="3"></td>
                                 <td colspan="2">Coupon Amount (-)</td>
-                                <td>${{$orderDetails->coupon_amount}}</td>
+                                <td>{{$orderDetails->currency}}{{$orderDetails->coupon_amount}}</td>
                             </tr>
                         @endif
                         @if ($orderDetails->delivery_method=="Flat Rate")
                             <tr>
                                 <td colspan="3"></td>
                                 <td colspan="2">Delivery Charge (+)</td>
-                                <td>${{$orderDetails->delivery_charges}}</td>
+                                <td>{{$orderDetails->currency}}{{$orderDetails->delivery_charges}}</td>
                             </tr>
                         @endif
                         <tr>
                             <td colspan="3"></td>
                             <td colspan="2">GRAND TOTAL</td>
-                            <td>${{$orderDetails->total}}</td>
+                            <td>{{$orderDetails->currency}}{{$orderDetails->total}}</td>
                         </tr>
                     </tfoot>
                 </table>

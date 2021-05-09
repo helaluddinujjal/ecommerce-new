@@ -21,17 +21,17 @@
                   $couponAmount=0;
                 }
             @endphp
-            <th>${{$subtotal}}</th>
+            <th>{{settings('site_currency')}}{{$subtotal}}</th>
           </tr>
           <tr>
             <td>Coupon Discount</td>
-            <th>${{$couponAmount}}
+            <th>{{settings('site_currency')}}{{$couponAmount}}
             </th>
           </tr>
           @if (!empty($deliveryCharge))
           <tr>
             <td>Delivery Charge(+)</td>
-            <th>${{$deliveryCharge['delivery_charges']}}</th>
+            <th>{{settings('site_currency')}}{{$deliveryCharge['delivery_charges']}}</th>
           </tr>  
           @else
               
@@ -44,7 +44,7 @@
               $grandTotal=$subtotal-$couponAmount;
               Session::put("grandTotal",$grandTotal)
           @endphp
-              ${{!empty($deliveryCharge)?$grandTotal+$deliveryCharge['delivery_charges']:$grandTotal}}
+              {{settings('site_currency')}}{{!empty($deliveryCharge)?$grandTotal+$deliveryCharge['delivery_charges']:$grandTotal}}
             </th>
           </tr>
         </tbody>

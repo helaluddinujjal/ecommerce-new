@@ -111,7 +111,7 @@
               scrollMonth : false,
               scrollInput : false,
               inline:false,
-              format: 'Y-m-d H:i',
+              format: deliveryPickupSettings.timeFieldShow==1?'Y-m-d H:i':'Y-m-d',
               formatTime: 'h:i A',
               formatDate: 'Y-m-d',
               minDate:minDate,
@@ -120,6 +120,7 @@
               timepicker: deliveryPickupSettings.timeFieldShow==1?true:false,
               datepicker: true,
               scrollTime: false,
+              defaultTime:localPickupSettings.shopOpenTime?localPickupSettings.shopOpenTime:"h:00 a",
               disabledWeekDays: deliveryPickupSettings.weekend?deliveryPickupSettings.weekend:[],
               disabledDates : deliveryPickupSettings.holiday?deliveryPickupSettings.holiday:[],
             })
@@ -142,14 +143,14 @@
             minDate = timezone.getTime() + 24 * 60 * 60 * 1000;
           }
       }
-    }
+    }       
         $('#local_pickup_date_time').datetimepicker({
           ownerDocument: document,
           contentWindow: window,
           scrollMonth : false,
           scrollInput : false,
           inline:false,
-          format: 'Y-m-d H:i',
+          format: localPickupSettings.timeFieldShow==1?'Y-m-d H:i':'Y-m-d',
           formatTime: 'h:i A',
           formatDate: 'Y-m-d',
           minDate:minDate,
@@ -158,6 +159,7 @@
           timepicker: localPickupSettings.timeFieldShow==1?true:false,
           datepicker: true,
           scrollTime: false,
+          defaultTime:localPickupSettings.shopOpenTime?localPickupSettings.shopOpenTime:"h:00 a",
           disabledWeekDays: localPickupSettings.weekend?localPickupSettings.weekend:[],
           disabledDates : localPickupSettings.holiday?localPickupSettings.holiday:[],
         })

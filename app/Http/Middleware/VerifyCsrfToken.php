@@ -32,6 +32,7 @@ class VerifyCsrfToken extends Middleware
         '/admin/update-status-coupon',
         '/admin/update-status-orderstatus',
         '/admin/update-status-delivery_charge',
+        '/admin/update-status-delivery_charge_by_weight',
         '/get-attr-price',
         '/cart-qty-updated',
     ];

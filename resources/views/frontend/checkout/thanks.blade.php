@@ -20,7 +20,7 @@
                 <div id="basket" class="col-lg-9">
                     <div class="jumbotron text-center">
                         <h1 class="display-3">Thank You!</h1>
-                        <p class="lead"><strong>Your order has been placed successfully.</strong> Your order id {{Session::get('orderId')}} and total amount is {{Session::get('grandTotal')}} </p>
+                        <p class="lead"><strong>Your order has been placed successfully.</strong> Your order id {{Session::get('orderId')}} and total amount is {{settings('site_currency').Session::get('grandTotal')}} </p>
                         <p class="lead"><strong>Please check your email</strong> You will get order information in shortly.</p>
                         <hr>
                         

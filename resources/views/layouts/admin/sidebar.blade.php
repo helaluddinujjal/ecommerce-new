@@ -57,7 +57,7 @@
         </li>
         {{-- settings --}}
         @php
-          if (Session::get('page')=='admin-setting' ||Session::get('page')=='admin-detail-update') {
+          if (Session::get('page')=='admin-account-settings' ||Session::get('page')=='admin-site-settings') {
             $active='menu-is-opening menu-open';
           } else {
             $active='';
@@ -72,7 +72,7 @@
             </p>
           </a>
           @php
-            if (Session::get('page')=='admin-setting') {
+            if (Session::get('page')=='admin-account-settings') {
               $active='active';
             } else {
               $active='';
@@ -80,29 +80,30 @@
           @endphp
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{url('admin/settings')}}" class="nav-link {{$active}}">
+              <a href="{{url('admin/account-settings')}}" class="nav-link {{$active}}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Admin Password</p>
+                <p>Profile Settings</p>
               </a>
             </li>
-            @php
-            if (Session::get('page')=='admin-detail-update') {
-              $active='active';
-            } else {
-              $active='';
-            }
-            @endphp
-            <li class="nav-item">
-              <a href="{{url('admin/update-details')}}" class="nav-link {{$active}}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Admin Details</p>
-              </a>
-            </li>
+            {{-- site settings --}}
+            @php  
+            if (Session::get('page')=='admin-site-settings') {
+                $active='active';
+              } else {
+                $active='';
+              }
+          @endphp
+          <li class="nav-item">
+            <a href="{{url('admin/site-settings')}}" class="nav-link {{$active}}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Site Settings </p>
+            </a>
+          </li>
           </ul>
         </li>
           {{-- Catalogues --}}
           @php
-          if (Session::get('page')=='admin-section' ||Session::get('page')=='admin-category'||Session::get('page')=='admin-brand'||Session::get('page')=='admin-filter'||Session::get('page')=='admin-coupon'||Session::get('page')=='admin-order'||Session::get('page')=='admin-order-status'||Session::get('page')=='admin-delivery-charges') {
+          if (Session::get('page')=='admin-section' ||Session::get('page')=='admin-category'||Session::get('page')=='admin-brand'||Session::get('page')=='admin-filter'||Session::get('page')=='admin-coupon'||Session::get('page')=='admin-order'||Session::get('page')=='admin-order-status') {
             $active='menu-is-opening menu-open';
           } else {
             $active='';
@@ -208,19 +209,6 @@
                 <p>Order Statuses</p>
               </a>
             </li>
-            @php  
-            if (Session::get('page')=='admin-delivery-charges') {
-                $active='active';
-              } else {
-                $active='';
-              }
-          @endphp
-          <li class="nav-item">
-            <a href="{{url('admin/view-delivery-charges')}}" class="nav-link {{$active}}">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Delivery Charges</p>
-            </a>
-          </li>
           </ul>
         </li>
         <!-- Product Menu -->
@@ -269,7 +257,7 @@
         @endphp
         <li class="nav-item has-treeview {{$active}}">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
+            <i class="far fa-calendar-alt"></i>
             <p>
               Datepickers
               <i class="right fas fa-angle-left"></i>
@@ -300,6 +288,51 @@
               <a href="{{url('admin/datepicker/delivery-pickup')}}" class="nav-link {{$active}}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Delivery Pickup Settings </p>
+              </a>
+            </li>
+          </ul>
+        </li>
+          {{-- Delivery Charges --}}
+          @php
+          if (Session::get('page')=='admin-delivery-charges' ||Session::get('page')=='admin-delivery-charges-by-weight') {
+            $active='menu-is-opening menu-open';
+          } else {
+            $active='';
+          }
+        @endphp
+        <li class="nav-item has-treeview {{$active}}">
+          <a href="#" class="nav-link">
+            <i class="fas fa-shipping-fast"></i>
+            <p>
+              Delivery Charges
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+              @php  
+              if (Session::get('page')=='admin-delivery-charges') {
+                  $active='active';
+                } else {
+                  $active='';
+                }
+            @endphp
+            <li class="nav-item">
+              <a href="{{url('admin/view-delivery-charges')}}" class="nav-link {{$active}}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Delivery Charges By Country </p>
+              </a>
+            </li>
+              @php  
+              if (Session::get('page')=='admin-delivery-charges-by-weight') {
+                  $active='active';
+                } else {
+                  $active='';
+                }
+            @endphp
+            <li class="nav-item">
+              <a href="{{url('admin/view-delivery-charges-by-weight')}}" class="nav-link {{$active}}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Delivery Charges By Weight </p>
               </a>
             </li>
           </ul>

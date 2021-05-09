@@ -325,20 +325,22 @@ $(document).ready(function(){
     
     $(document).on('change','#getSize',function(event){
         var proSize=$(this).val()
-        
         if (proSize=="") {
             var hidden_attr_price =$("#hidden_attr_price").text()
             var hidden_dis_price =$("#hidden_dis_price").text()
             var hidden_percentage =$("#hidden_percentage").text()
             var hidden_attr_stock =$("#hidden_attr_stock").text()
+            var hidden_attr_weight =$("#hidden_attr_weight").text()
             if (hidden_dis_price.length) {
                 $('#attr_price').text(hidden_attr_price);
                 $('#dis_price').text(hidden_dis_price);
                 $('#percentage').text(hidden_percentage);
                 $('#attr_stock').text(hidden_attr_stock); 
+                $('#attr_weight').text(hidden_attr_weight); 
             }else{
                 $('#attr_price').text(hidden_attr_price);
                 $('#attr_stock').text(hidden_attr_stock); 
+                $('#attr_weight').text(hidden_attr_weight); 
             }
             Toast.fire({
                 icon: 'warning',
@@ -352,20 +354,23 @@ $(document).ready(function(){
             url:'/get-attr-price',
             data:{proSize:proSize,productId:productId},
             success:function(res){
-                if (res['dis_price']>0) {
+                if (res.productData.dis_price>0) {
                     $('#attr_price').text('');
                     $('#dis_price').text('');
                     $('#percentage').text('');
                     $('#attr_stock').text('');
-                    $('#attr_price').text(res['attr_price']);
-                    $('#dis_price').text(res['final_price']);
-                    $('#percentage').text(res['percentage']);
-                    $('#attr_stock').text(res['attr_stock']); 
+                    $('#attr_weight').text('');
+                    $('#attr_price').text(res.currency+res.productData['attr_price']);
+                    $('#dis_price').text(res.currency+res.productData['final_price']);
+                    $('#percentage').text(res.productData['percentage']);
+                    $('#attr_stock').text(res.productData['attr_stock']); 
+                    $('#attr_weight').text(res.productData['attr_weight']); 
                 }else{
                     $('#attr_price').text('');
                     $('#attrStock').text('');
-                    $('#attr_price').text(res['attr_price']);
-                    $('#attr_stock').text(res['attr_stock']); 
+                    $('#attr_price').text(res.currency+res.productData['attr_price']);
+                    $('#attr_stock').text(res.productData['attr_stock']); 
+                    $('#attr_weight').text(res.productData['attr_weight']); 
                 }
                
             },

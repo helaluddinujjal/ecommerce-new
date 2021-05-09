@@ -5,16 +5,16 @@
     margin-top: 5px;
 }
 #size,#sku{
-    max-width:27%;
+    max-width:21%;
 }
-#price,#stock{
-    max-width:18%;
+#price,#stock,#weight{
+    max-width:15%;
 }
 @media only screen and (max-width: 550px) {
    #size,#sku{
        max-width:100%;
    }
-   #price,#stock{
+   #price,#stock,#weight{
        max-width:70%;
    }
   }

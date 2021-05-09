@@ -56,9 +56,9 @@
                 $discount_data= App\Product::getDiscountPrice($proDetail->id);
             @endphp
             @if ($discount_data['price']>0)
-            <sup><span class="badge badge-info">{{$discount_data['percentage']}}</span></sup><del class="text-danger">${{$proDetail->product_price}}</del> ${{$discount_data['price']}}
+            <sup><span class="badge badge-info">{{$discount_data['percentage']}}</span></sup><del class="text-danger">{{settings('site_currency')}}{{$proDetail->product_price}}</del> {{settings('site_currency')}}{{$discount_data['price']}}
             @else
-              ${{$proDetail->product_price}}
+            {{settings('site_currency')}}{{$proDetail->product_price}}
             @endif
           </p>
           <p class="buttons"><a href="{{url('product/'.$proDetail->url)}}" class="btn btn-outline-secondary">View detail</a><a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a></p>

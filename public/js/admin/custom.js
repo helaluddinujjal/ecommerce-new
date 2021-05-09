@@ -7,6 +7,7 @@ $(document).ready(function(){
     $(document).on("click","#automatic_coupon",function(){
         $("#coupon_code_field").fadeOut('slow');
     })
+
     //check password
     
     /* $('#current_pass').keyup(function(){
@@ -152,7 +153,7 @@ $(document).ready(function(){
     var wrapper = $('.field_wrapper'); //Input field wrapper
     var remove_img_url = window.location.origin+"/images/icon/remove-icon.png";
     var addFieldId=$('.field_wrapper input').attr('id');
-    var fieldHTML = '<div class="attribute"> <input type="text" id="size" class="attr_size"  name="size[]" placeholder="Size" required/> <input type="text" class="attr_sku" id="sku" name="sku[]" placeholder="SKU" required/> <input type="number" id="price" name="price[]" placeholder="Price" step="any" required/> <input type="number" id="stock" name="stock[]" placeholder="Stock" required/> <a href="javascript:void(0);" class="remove_button"> <img src="'+remove_img_url+'"/></a></div></a>'; //New input field html 
+    var fieldHTML = '<div class="attribute"> <input title="Input Product Attribute Size" type="text" id="size" class="attr_size"  name="size[]" placeholder="Size" required/> <input title="Input Product Attribute SKU" type="text" class="attr_sku" id="sku" name="sku[]" placeholder="SKU" required/> <input type="number" title="Input Product Attribute Price" id="price" name="price[]" placeholder="Price" step="any" min=".1" required/> <input title="Input Product Attribute Stock" type="number" id="stock" name="stock[]" placeholder="Stock" required min="0" /> <input type="number" id="weight" name="weight[]" placeholder="Weight(g)" step="any" min=".1" title="Input Product Attribute Weight in (gram)" required/> <a href="javascript:void(0);" class="remove_button"> <img src="'+remove_img_url+'"/></a></div></a>'; //New input field html 
 
     var filterField='<div class="attribute"> <input type="text" id="filter_value" class="filter_value w-75"  name="filter_value[]" placeholder="Value" required/> <a href="javascript:void(0);" class="remove_button"> <img src="'+remove_img_url+'"/></a></div></a>'; 
 

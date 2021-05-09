@@ -68,20 +68,20 @@ class Product extends Model
         
     }
     public static function getAttrDiscountPrice($product_id,$size){
-        $attrProDetails=ProductAttribute::select('price','stock')->where(['product_id'=>$product_id,'size'=>$size])->first();
+        $attrProDetails=ProductAttribute::select('price','stock','weight')->where(['product_id'=>$product_id,'size'=>$size])->first();
         $proDetails=Product::select('category_id','product_discount')->where('id',$product_id)->first();
         $catDetails=Category::select('discount')->where('id',$proDetails->category_id)->first();
         $discountData=[];
         if ($proDetails->product_discount>0) {
             $finalPrice=$attrProDetails->price-($attrProDetails->price*$proDetails->product_discount)/100;
             $discount_price=$attrProDetails->price-$finalPrice;
-            $discountData=['attr_price'=>$attrProDetails->price,'attr_stock'=>$attrProDetails->stock,'final_price'=> $finalPrice,'percentage'=>$proDetails->product_discount. '% Off','dis_price'=>$discount_price];
+            $discountData=['attr_price'=>$attrProDetails->price,'attr_stock'=>$attrProDetails->stock,'attr_weight'=>$attrProDetails->weight,'final_price'=> $finalPrice,'percentage'=>$proDetails->product_discount. '% Off','dis_price'=>$discount_price];
         } elseif ($catDetails->discount>0){
             $finalPrice =$attrProDetails->price-($attrProDetails->price*$catDetails->discount)/100;
             $discount_price=$attrProDetails->price-$finalPrice;
-            $discountData=['attr_price'=>$attrProDetails->price,'final_price'=> $finalPrice,'percentage'=>$catDetails->discount. '% Off','attr_stock'=>$attrProDetails->stock,'dis_price'=>$discount_price];
+            $discountData=['attr_price'=>$attrProDetails->price,'attr_weight'=>$attrProDetails->weight,'final_price'=> $finalPrice,'percentage'=>$catDetails->discount. '% Off','attr_stock'=>$attrProDetails->stock,'dis_price'=>$discount_price];
         }else{
-            $discountData=['attr_price'=>$attrProDetails->price,'final_price'=> $attrProDetails->price,'percentage'=>0,'attr_stock'=>$attrProDetails->stock,'dis_price'=>0];
+            $discountData=['attr_price'=>$attrProDetails->price,'final_price'=> $attrProDetails->price,'percentage'=>0,'attr_stock'=>$attrProDetails->stock,'attr_weight'=>$attrProDetails->weight,'dis_price'=>0];
         }
         return $discountData;
         

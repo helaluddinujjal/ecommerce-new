@@ -43,7 +43,7 @@
                     <label for="country">Country</label>
                     <select id="country" autocomplete="off" name="delivery_country"  class="form-control deliveryCountry">
                         <option value="">Select Country</option>
-                        @foreach ($countries as $country)
+                        @foreach ($deliveryCountries as $country)
                             <option value="{{$country->id}}" @if (isset($selectCountry->id)&&!empty($selectCountry->id)&&$selectCountry->id==$country->id)
                                 selected="selected"
                             @endif>{{$country->name}}</option>

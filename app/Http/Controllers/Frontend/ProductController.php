@@ -12,6 +12,7 @@ use App\Coupon;
 use App\DatepickerSetting;
 use App\DeliveryAddress;
 use App\DeliveryCharge;
+use App\DeliveyChargeByWeight;
 use App\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -144,7 +145,12 @@ class ProductController extends Controller
         if ($request->ajax()) {
         $data=$request->all();
         $productData=Product::getAttrDiscountPrice($data['productId'],$data['proSize']);
-        return $productData;
+        $currency=settings('site_currency');
+        //return $productData;
+        return response()->json([
+            'productData'=>$productData,
+            'currency'=>$currency,
+        ]);
         }
     }
 
@@ -191,6 +197,7 @@ class ProductController extends Controller
                 $cart->product_id=$data['product_id'];
                 $cart->user_id=Auth::check()?Auth::user()->id:0;
                 $cart->size=$data['size'];
+                $cart->weight=$productAttr->weight;
                 $cart->quantity=$data['quantity'];
                 $cart->save();
                 return redirect('/cart');
@@ -377,7 +384,7 @@ class ProductController extends Controller
             $this->validate($request,$rules); 
              $data=$request->all();
             if ($request->check_to_different_address) {
-                //get country name
+                //get country name 
                 $deliveryCountryName=getCountryName($data['delivery_country']);
                 if ($deliveryCountryName==false) {
                     toast('Invalid Delivery Country','error');
@@ -482,12 +489,30 @@ class ProductController extends Controller
                 toast('Please do not select previous date from datepicker.Please change the '.$title.' date.','error');
                 return redirect()->back();
             }
-            //chaking close shop time
-
+            //chaking select time is before open shop time
+            if (!empty($datepickerSettings->shopOpenTime)&&$datepickerSettings->timeFieldShow==1) {
+                $shopOpen=$datepickerSettings->shopOpenTime;
+                $selectTime= date('H:i',strtotime($data['delivery_pickup_dateTime']));
+                if ($selectTime<$shopOpen) {
+                   toast('Shop Opening hour is'.$shopOpen.'.Please change the '.$title.' Time.','error');
+                   return redirect()->back();
+                }
+            }
+            //chaking closing shop time
             if (!empty($datepickerSettings->shopCloseTime)) {
                  $nowHour=date('H:i');
-                $date=date('Y-m-d');
+                 $date=date('Y-m-d');
                  $shopClose=$datepickerSettings->shopCloseTime;
+                 
+                 //check select time is after closing time
+                 if ($datepickerSettings->timeFieldShow==1) {
+                    $selectTime= date('H:i',strtotime($data['delivery_pickup_dateTime']));
+                    if ($selectTime>$shopClose) {
+                       toast('It is shop closing hour.Please change the '.$title.' Time.','error');
+                       return redirect()->back();
+                    }
+                 }
+                 //chaking closing shop time
                 if (!empty($datepickerSettings->cutOffDay)&&$datepickerSettings->cutOffDay==1) {
                     if ($nowHour>$shopClose) {
                         $deliveryDate= date('Y-m-d',strtotime($data['delivery_pickup_dateTime']));
@@ -527,7 +552,13 @@ class ProductController extends Controller
                     return redirect()->back();
                 }
             }
-
+            
+            //final time input in database
+            if ($datepickerSettings->timeFieldShow==1) {
+                $inputDateTime= date('d-m-Y h:i A',strtotime($data['delivery_pickup_dateTime']));
+            }else{
+                $inputDateTime= date('d-m-Y',strtotime($data['delivery_pickup_dateTime']));
+            }
               //deliveryCharges
               if ($data["delivery_method"]=="Flat Rate") {
                 if ($request->check_to_different_address) {
@@ -566,7 +597,8 @@ class ProductController extends Controller
                 $order->order_status="New";
                 $order->payment_method=$paymentMethod;
                 $order->payment_gateway=$data['payment_gatway'];
-                $order->delivery_pickup_dateTime=$data['delivery_pickup_dateTime'];
+                $order->delivery_pickup_dateTime=$inputDateTime;
+                $order->currency=settings('site_currency');
                 $order->total=!empty($deliveryCharges)?Session::get('grandTotal')+$deliveryCharges:Session::get('grandTotal');
                 if ($data["delivery_method"]=="Flat Rate") {
                     if ($request->check_to_different_address) {
@@ -663,9 +695,17 @@ class ProductController extends Controller
         $localPickupSettings=DatepickerSetting::find(1);
         $deliveryPickupSettings=DatepickerSetting::find(2);
         $deliveryAddDetails=DeliveryAddress::where('user_id',Auth::user()->id)->get();
+        //check delivery charge type
+        if (settings('delivery_charge_type')=="Country") {
+            $deliveryChargesCountry=DeliveryCharge::select('country')->where('status',1)->get()->toArray();
+        } else {
+            $deliveryChargesCountry=DeliveyChargeByWeight::select('country')->where('status',1)->get()->toArray();
+        }
+        
+         $deliveryCountries=Country::select('id','name')->whereIn('name',$deliveryChargesCountry)->get();
         $countries=Country::select('id','name')->get();
         $cartDatas= Cart::userCartItem();
-        return view('frontend.checkout.checkouts')->with(compact('userDetails','countries','deliveryAddDetails','cartDatas','localPickupSettings','deliveryPickupSettings'));
+        return view('frontend.checkout.checkouts')->with(compact('userDetails','deliveryCountries','countries','deliveryAddDetails','cartDatas','localPickupSettings','deliveryPickupSettings'));
     }
 
     public function thanks(){
@@ -720,8 +760,10 @@ class ProductController extends Controller
                 $selectState="";
                 $selectCity="";
            }
+           $deliveryChargesCountry=DeliveryCharge::select('country')->where('status',1)->get()->toArray();
+           $deliveryCountries=Country::select('id','name')->whereIn('name',$deliveryChargesCountry)->get();
            $countries=Country::select('id','name')->get();
-           return response()->json(['status'=>$status,"view"=>(string)view('frontend.checkout.ajax_delivery_address_fields')->with(compact('delAddDetails','countries','selectCountry','selectState','selectCity'))]);
+           return response()->json(['status'=>$status,"view"=>(string)view('frontend.checkout.ajax_delivery_address_fields')->with(compact('delAddDetails','deliveryCountries','selectCountry','selectState','selectCity'))]);
         }
     }
 

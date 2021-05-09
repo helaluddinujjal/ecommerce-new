@@ -146,20 +146,20 @@
                                                     <td width="15%" align="left"  style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> {{$item->product_size}} </td>
                                                     <td width="15%" align="left"  style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> {{$item->product_color}} </td>
                                                     
-                                                    <td width="15%" align="left"  style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> ${{$item->product_discount_price*$item->product_qty}} </td>
+                                                    <td width="15%" align="left"  style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> {{$orderDetails->currency}}{{$item->product_discount_price*$item->product_qty}} </td>
                                                 </tr>
                                             @endforeach
 
                                             @if (!empty($orderDetails->coupon_amount)&&$orderDetails->coupon_amount>0)
                                             <tr>
                                                 <td colspan="4" width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;"> Coupon Discount </td>
-                                                <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;"> ${{$orderDetails->coupon_amount}} </td>
+                                                <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;"> {{$orderDetails->currency}}{{$orderDetails->coupon_amount}} </td>
                                             </tr>
                                             @endif
                                         @if ($orderDetails->delivery_method=="Flat Rate")
                                             <tr>
                                                 <td width="75%" colspan="4" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;"> Delivery Charge (+) </td>
-                                                <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;"> ${{$orderDetails->delivery_charges}} </td>
+                                                <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;"> {{$orderDetails->currency}}{{$orderDetails->delivery_charges}} </td>
                                             </tr>
                                         @endif
 
@@ -171,7 +171,7 @@
                                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                             <tr>
                                                 <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;"> TOTAL </td>
-                                                <td width="25%" align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;"> ${{$orderDetails->total}} </td>
+                                                <td width="25%" align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;"> {{$orderDetails->currency}}{{$orderDetails->total}} </td>
                                             </tr>
                                         </table>
                                     </td>

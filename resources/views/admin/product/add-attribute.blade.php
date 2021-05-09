@@ -57,16 +57,17 @@
                       <b>Product Color</b> <a class="float-right">{{$productData->product_color}}</a>
                     </li>
                     <li class="list-group-item">
-                      <b>Product Price</b> <a class="float-right">{{$productData->product_price}}</a>
+                      <b>Product Price</b> <a class="float-right">{{settings('site_currency')}}{{$productData->product_price}}</a>
                     </li>
                   </ul>
                     <div class="field_wrapper">
                       <input type="hidden" id="productData" value="{{$productData->id}}">
                       <div class="attribute">
-                        <input class="attr_size"  type="text" id="size" name="size[]" placeholder="Size" required/>
-                        <input class="attr_sku" type="text" id="sku" name="sku[]" placeholder="SKU" required/>
-                        <input type="number" id="price" name="price[]" placeholder="Price" step="any" required/>
-                        <input type="number" id="stock" name="stock[]" placeholder="Stock" required/>
+                        <input title="Input Product Attribute Size" class="attr_size"  type="text" id="size" name="size[]" placeholder="Size" required/>
+                        <input title="Input Product Attribute SKU" class="attr_sku" type="text" id="sku" name="sku[]" placeholder="SKU" required/>
+                        <input title="Input Product Attribute Price" type="number" id="price" name="price[]" placeholder="Price({{settings('site_currency')}})" step="any" min=".1" required/>
+                        <input title="Input Product Attribute Stock" type="number" id="stock" name="stock[]" placeholder="Stock" required min="0"/>
+                        <input title="Input Product Attribute Weight in (gram)" type="number" id="weight" name="weight[]" placeholder="Weight(g)" required step="any" min=".1"/>
                           <a href="javascript:void(0);" class="add_button" title="Add field"><img src="{{asset('images/icon/add-icon.png')}}"/></a>
                         </div>
                       </div>
@@ -114,8 +115,9 @@
                 <th>ID</th>
                 <th>Size</th>
                 <th>SKU</th>
-                <th>Price</th>
+                <th>Price({{settings('site_currency')}})</th>
                 <th>Stock</th>
+                <th>Weight(g)</th>
                 <th>Status</th>
                 <th>Action</th>
                 <th></th>
@@ -128,8 +130,9 @@
                     <td>{{$attribute->id}} <input type="hidden" name="attrId[]" value="{{$attribute->id}}"></td>
                     <td>{{$attribute->size}}</td>
                     <td>{{$attribute->sku}}</td>
-                    <td><input class="form-control" type="number" type="any" name="price[]" value="{{$attribute->price}}"></td>
-                    <td><input class="form-control" type="number" name="stock[]" value="{{$attribute->stock}}"></td>
+                    <td><input class="form-control" type="number" type="any" name="price[]" value="{{$attribute->price}}" required step="any" min=".1"></td>
+                    <td><input class="form-control" type="number" name="stock[]" value="{{$attribute->stock}}" required min="0"></td>
+                    <td><input class="form-control" type="number" name="weight[]" value="{{$attribute->weight}}" required step="any" min=".1"></td>
                     <td>
                       <a class="updateStatus" href="javascript:void(0)" id="attribute-{{$attribute->id}}" name="attribute" get_id="{{$attribute->id}}">
                         @if ($attribute->status==1)

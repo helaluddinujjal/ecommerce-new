@@ -32,10 +32,10 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         /* 
         ************Settings
         */
-        Route::get('/settings', 'AdminController@settings');
         Route::post('/check-password', 'AdminController@checkPass');
         Route::post('/update-password', 'AdminController@updatePass');
-        Route::match(['get','post'],'/update-details', 'AdminController@updateDetails');
+        Route::match(['get','post'],'/account-settings', 'AdminController@accountSettings');
+        Route::match(['get','post'],'/site-settings', 'SettingsController@siteSettings');
         
         /* 
         ************section
@@ -136,9 +136,15 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         /* 
         *******Delivery
         */
+        //delivery charge by country
         Route::get('view-delivery-charges','DeliveryController@viewDeliveryCharges');
         Route::post('/update-status-delivery_charge','DeliveryController@updateStatusDeliveryCharge');
         Route::match(['get','post'],'edit-delivery-charge/{id}','DeliveryController@editDeliveryCharges');
+        //delivery charge by weight
+        Route::get('view-delivery-charges-by-weight','DeliveryController@viewDeliveryChargesByWeight');
+        Route::post('/update-status-delivery_charge_by_weight','DeliveryController@updateStatusDeliveryChargeByWeight');
+        Route::match(['get','post'],'edit-delivery-charge-by-weight/{id}','DeliveryController@editDeliveryChargesByWeight');
+        Route::get('delete-delivery-weight-value/{id}','DeliveryController@deliveryWeightValueDeleted');
         /* 
         *******Datepicker
         */

@@ -13,6 +13,7 @@
         <tbody>
             @php
                 $totalPrice=0;
+                $totalWeight=0;
             @endphp
             @if ($cartDatas->count()>0)
                 @foreach ($cartDatas as $data)
@@ -36,18 +37,19 @@
                     <td>
                       {{$data->quantity}}
                     </td>
-                    <td>${{$discountData['attr_price']}}</td>
-                    <td>${{$discountData['dis_price']}}*{{$data->quantity}}=${{$discountData['dis_price']*$data->quantity}}
+                    <td>{{settings('site_currency')}}{{$discountData['attr_price']}}</td>
+                    <td>{{settings('site_currency')}}{{$discountData['dis_price']}}*{{$data->quantity}}={{settings('site_currency')}}{{$discountData['dis_price']*$data->quantity}}
                         @if ($discountData['percentage']>0)
                              <sup><span class="badge badge-info">{{$discountData['percentage']}}</span></sup>
                         @endif
                         
                     </td>
-                    <td>${{$discountData['final_price']*$data->quantity}}</td>
+                    <td>{{settings('site_currency')}}{{$discountData['final_price']*$data->quantity}}</td>
                     
                   </tr>
                   @php
-                      $totalPrice=$totalPrice+($discountData['final_price']*$data->quantity)
+                      $totalPrice=$totalPrice+($discountData['final_price']*$data->quantity);
+                      $totalWeight=$totalWeight+($discountData['attr_weight']*$data->quantity);
                   @endphp
                 @endforeach
                 @else
@@ -59,9 +61,10 @@
         <tfoot>
           <tr>
             <th colspan="5">Total</th>
-            <th colspan="2" id="cartTotalPrice">${{$totalPrice}}</th>
+            <th colspan="2" id="cartTotalPrice">{{settings('site_currency')}}{{$totalPrice}}</th>
             @php
-                Session::put('order_subtotal',$totalPrice)
+                Session::put('order_subtotal',$totalPrice);
+                Session::put('total_weight',$totalWeight);
             @endphp
           </tr>
         </tfoot>

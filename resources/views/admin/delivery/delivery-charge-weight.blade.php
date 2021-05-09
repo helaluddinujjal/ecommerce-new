@@ -16,7 +16,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{url('/admin/dashboard')}}">Home</a></li>
-            <li class="breadcrumb-item active">Delivery Charges</li>
+            <li class="breadcrumb-item active">Delivery Charges By Weight</li>
           </ol>
         </div>
       </div>
@@ -30,7 +30,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Delivery Charges by Country List</h3>
+              <h3 class="card-title">Delivery Charges By Weight List</h3>
               <div class="mt-5">
                 @include('include.session_msg')
               </div>
@@ -42,7 +42,6 @@
                 <tr>
                   <th>ID</th>
                   <th>Country</th>
-                  <th>Delivery Charges</th>
                   <th>Status</th>
                   <th>Action</th>
                   <th></th>
@@ -53,9 +52,8 @@
                     <tr>
                       <td>{{$charge->id}}</td>
                       <td>{{$charge->country}} </td>
-                      <td>{{settings('site_currency')}}{{$charge->delivery_charges}} </td>
                       <td>
-                         <a class="updateStatus" href="javascript:void(0)" id="delivery_charge-{{$charge->id}}" get_id="{{$charge->id}}">
+                         <a class="updateStatus" href="javascript:void(0)" id="delivery_charge_by_weight-{{$charge->id}}" get_id="{{$charge->id}}">
                           @if ($charge->status==1)
                           <i title="Click to inactive" class="fa fa-toggle-on fa-2x" aria-hidden="true" status="Active"></i>
                           @else
@@ -65,7 +63,7 @@
                          </td>
                       <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                          <a class="btn btn-sm btn-info" href="{{url('admin/edit-delivery-charge/'.$charge->id)}}">Edit</a>
+                          <a class="btn btn-sm btn-info" href="{{url('admin/edit-delivery-charge-by-weight/'.$charge->id)}}">Edit</a>
                         </div>
                       </td>
                       <td></td>

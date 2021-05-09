@@ -20,12 +20,6 @@ class AdminController extends Controller
     }
 
     //settings
-    public function settings(){
-        Session::forget('page');
-        Session::put('page','admin-setting');
-        $adminDetails=Admin::where('email',Auth::guard('admin')->user()->email)->first();
-        return view('admin.settings_password')->with(compact('adminDetails'));
-    }
     public function checkPass(Request $request){
         
         if (Hash::check($request->current_pass,Auth::guard('admin')->user()->password)) {
@@ -62,9 +56,9 @@ class AdminController extends Controller
             }
         }
     }
-    public function updateDetails(Request $request){
+    public function accountSettings(Request $request){
         Session::forget('page');
-        Session::put('page','admin-detail-update');
+        Session::put('page','admin-account-settings');
         $adminDetails=Admin::where('email',Auth::guard('admin')->user()->email)->first();
         if ($request->isMethod('post')) {
             $rule=[

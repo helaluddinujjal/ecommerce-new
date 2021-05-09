@@ -69,7 +69,7 @@
                 @include('admin.category.append-category-lavel') 
               </div>
               <div class="form-group">
-                <label for="categoryDiscount">Category Discount</label>
+                <label for="categoryDiscount">Category Discount(%)</label>
                 <input type="text" id="categoryDiscount" class="form-control" name="discount" placeholder="Enter Category Discount" @if (!empty($categoryData->discount))
                 value="{{$categoryData->discount}}"  
               @else

@@ -30,8 +30,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Brand List</h3>
-              <a href="{{url('admin/add-edit-brand')}}" class="btn btn-success float-right">Add Brand</a>
+              <h3 class="card-title">Filter List</h3>
               <div class="mt-5">
                 @include('include.session_msg')
               </div>

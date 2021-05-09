@@ -68,14 +68,14 @@
                 <div class="box">
                   <h1 class="text-center">{{$productDetails->product_name}}</h1>
                   <p class="goToDescription"><a href="#details" class="scroll-to">Scroll to product details, material &amp; care and sizing</a></p>
-                  <p class="price">$ <span class="attrPrice">
+                  <p class="price"><span class="attrPrice">
                     @php
                         $discount_data= App\Product::getDiscountPrice($productDetails->id);
                     @endphp
                     @if ($discount_data['price']>0)
-                    <del class="text-danger" id="attr_price">{{$productDetails->product_price}}</del><span id="dis_price">{{$discount_data['price']}}</span> <sup><span class="badge badge-info" id="percentage">{{$discount_data['percentage']}}</span></sup>
+                    <del class="text-danger" id="attr_price">{{settings('site_currency')}}{{$productDetails->product_price}}</del> <span id="dis_price"> {{settings('site_currency')}}{{$discount_data['price']}}</span> <sup><span class="badge badge-info" id="percentage">{{$discount_data['percentage']}}</span></sup>
                     @else
-                      <span id="attr_price">{{$productDetails->product_price}}</span>
+                      <span id="attr_price">{{settings('site_currency')}}{{$productDetails->product_price}}</span>
                     @endif
                   
                   </span></p>
@@ -84,9 +84,9 @@
                         $discount_data= App\Product::getDiscountPrice($productDetails->id);
                     @endphp
                     @if ($discount_data>0)
-                    <del class="text-danger" id="hidden_attr_price">{{$productDetails->product_price}}</del> <span id="hidden_dis_price">${{$discount_data['price']}}</span><sup><span class="badge badge-info" id="hidden_percentage">{{$discount_data['percentage']}}</span></sup>
+                    <del class="text-danger" id="hidden_attr_price">{{settings('site_currency')}}{{$productDetails->product_price}}</del> <span id="hidden_dis_price">{{settings('site_currency')}}{{$discount_data['price']}}</span><sup><span class="badge badge-info" id="hidden_percentage">{{$discount_data['percentage']}}</span></sup>
                     @else
-                      <span id="hidden_attr_price">${{$productDetails->product_price}}</span>
+                      <span id="hidden_attr_price">{{settings('site_currency')}}{{$productDetails->product_price}}</span>
                     @endif
                   </p>
                   <span id="hidden_attr_stock" style="display:none">{{$totalStock}}</span>
@@ -194,7 +194,9 @@
                         @if (!empty($productDetails->product_weight))
                           <tr>
                             <th>Weight</th>
-                            <td>{{$productDetails->product_weight}}</td>
+                            <td>
+                              <span id="hidden_attr_weight" style="display:none">{{$productDetails->product_weight}}</span>
+                              <span id="attr_weight">{{$productDetails->product_weight}}</span></td>
                             </tr>
                           <tr>
                         @endif
@@ -305,9 +307,9 @@
                             $discount_data= App\Product::getDiscountPrice($relatedPro->id);
                         @endphp
                         @if ($discount_data['price']>0)
-                        <sup><span class="badge badge-info">{{$discount_data['percentage']}}</span></sup><del class="text-danger">${{$relatedPro->product_price}}</del> ${{$discount_data['price']}}
+                        <sup><span class="badge badge-info">{{$discount_data['percentage']}}</span></sup><del class="text-danger">{{settings('site_currency')}}{{$relatedPro->product_price}}</del> {{settings('site_currency')}}{{$discount_data['price']}}
                         @else
-                          ${{$productDetails->product_price}}
+                          {{settings('site_currency')}}{{$productDetails->product_price}}
                         @endif
                       </p>
                     </div>
@@ -379,9 +381,9 @@
                           $discount_data= App\Product::getDiscountPrice($proDetails->id);
                           @endphp
                           @if ($discount_data['price']>0)
-                          <sup><span class="badge badge-info">{{$discount_data['percentage']}}</span></sup><del class="text-danger">${{$proDetails->product_price}}</del> ${{$discount_data['price']}}
+                          <sup><span class="badge badge-info">{{$discount_data['percentage']}}</span></sup><del class="text-danger">{{settings('site_currency')}}{{$proDetails->product_price}}</del> {{settings('site_currency')}}{{$discount_data['price']}}
                           @else
-                            ${{$proDetails->product_price}}
+                            {{settings('site_currency')}}{{$proDetails->product_price}}
                           @endif
                         </p>
                       </div>

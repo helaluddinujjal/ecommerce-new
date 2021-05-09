@@ -54,7 +54,7 @@
                               @endif  
                             </td>
                             <td> {{$order->payment_method}}</td>
-                            <td>$ {{$order->total}}</td>
+                            <td> {{$order->currency.$order->total}}</td>
                             <td><span class="badge badge-info">{{$order->order_status}}</span></td>
                             <td><a href="{{url('/orders/'.$order->id)}}" class="btn btn-primary btn-sm">View</a></td>
                         </tr>  
