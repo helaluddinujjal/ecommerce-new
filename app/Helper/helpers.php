@@ -103,4 +103,23 @@ function settings($data){
         }
     }
 }
+
+//get currency code
+function get_currency_code(){
+  
+    if (!empty(settings('site_currency'))) {
+        if (settings('site_currency')=="$") {
+            return  $curency="USD";
+        }elseif(settings('site_currency')=="€"){
+            return  $curency="EUR";
+        }elseif(settings('site_currency')=="৳"){
+            return $curency="BDT";
+        }elseif(settings('site_currency')=="₹"){
+            return  $curency="INR";
+        }
+    }else {
+       return $curency="USD";
+    }
+ 
+}
 ?>

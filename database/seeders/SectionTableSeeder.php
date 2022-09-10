@@ -16,16 +16,19 @@ class SectionTableSeeder extends Seeder
             [
                 'id'=>1,
                 'name'=>'Men',
+                'url'=>'men',
                 'status'=>1,
             ],
             [
                 'id'=>2,
                 'name'=>'Women',
+                'url'=>'women',
                 'status'=>1,
             ],
             [
                 'id'=>3,
                 'name'=>'Kides',
+                'url'=>'kides',
                 'status'=>1,
             ],
        ];

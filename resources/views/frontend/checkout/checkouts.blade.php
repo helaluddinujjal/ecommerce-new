@@ -13,7 +13,7 @@
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{url('/cart')}}">Cart</a></li>
-                  <li class="breadcrumb-item active">Checkout-Address</li>  
+                  <li class="breadcrumb-item active">Checkout-Address</li>
               </ol>
             </nav>
             @include('include.session_msg')
@@ -26,10 +26,11 @@
                 <div class="nav flex-column flex-md-row nav-pills text-center"><a href="checkout1.html" class="nav-link flex-sm-fill text-sm-center active" id="billing-menu"> <i class="fa fa-map-marker">                  </i>Address</a><a href="#" class="nav-link flex-sm-fill text-sm-center disabled" id="delivery-menu"> <i class="fa fa-truck">                       </i>Delivery Method</a><a href="#" class="nav-link flex-sm-fill text-sm-center disabled" id="payment-menu"> <i class="fa fa-money">                      </i>Payment Method</a><a href="#" class="nav-link flex-sm-fill text-sm-center disabled" id="review-menu"> <i class="fa fa-eye">                     </i>Order Review</a></div>
 
                 {{-- billing-address --}}
-                @include('frontend.checkout.billing_address') 
+                @include('frontend.checkout.billing_address')
                 {{-- end billing address --}}
 
                 {{-- delivery address --}}
+                
                 @include('frontend.checkout.delivery_method')
                 {{--end delivery-address --}}
 
@@ -143,7 +144,7 @@
             minDate = timezone.getTime() + 24 * 60 * 60 * 1000;
           }
       }
-    }       
+    }
         $('#local_pickup_date_time').datetimepicker({
           ownerDocument: document,
           contentWindow: window,
@@ -164,14 +165,14 @@
           disabledDates : localPickupSettings.holiday?localPickupSettings.holiday:[],
         })
       }
-      
+
     },300)
-    
-    
+
+
   })
-  
+
   function convertTZ(date, tzString) {
-    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));
 }
   </script>
 @endpush

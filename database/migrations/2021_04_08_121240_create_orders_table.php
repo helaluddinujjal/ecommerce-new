@@ -42,7 +42,9 @@ class CreateOrdersTable extends Migration
             $table->string('order_status')->nullable();
             $table->string('payment_method')->nullable();
             $table->string('payment_gateway')->nullable();
-            $table->float('currency');
+            $table->string('paypal_orderid')->nullable();
+            $table->string('payment_status')->nullable();
+            $table->string('currency')->nullable();
             $table->float('total');
             $table->timestamps();
         });

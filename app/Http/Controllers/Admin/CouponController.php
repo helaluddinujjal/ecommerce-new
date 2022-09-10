@@ -66,9 +66,9 @@ class CouponController extends Controller
                 'amount.required'=>"Amount must not be empty",
                 'expiry_date.required'=>"Expiry date must not be empty",
             ];
-            $this->validate($request,$rule,$customMsg); 
-             $data=$request->all(); 
-             if ($data['coupon_code']=="Manual") {
+            $this->validate($request,$rule,$customMsg);
+             $data=$request->all();
+             if ($data['coupon_option']=="Manual") {
                  $coupon_code=$data['coupon_code'];
                 } else {
                     $coupon_code=str_random(8);
@@ -85,7 +85,7 @@ class CouponController extends Controller
                 }
                 if (isset($data['expiry_date'])) {
                     $dates= explode(' to ',$data['expiry_date']);
-                } 
+                }
                 $coupon->coupon_option=$data['coupon_option'];
                 $coupon->coupon_code=$coupon_code;
                 $coupon->categories=$categories;

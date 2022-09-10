@@ -87,4 +87,10 @@ class Product extends Model
         
     }
 
+    //stock update after purchase product
+    public static function reduceStock($product_id,$size,$qty){
+        $getProductStock=ProductAttribute::where(['product_id'=>$product_id,'size'=>$size])->first();
+        $newStock=$getProductStock->stock - $qty;
+        ProductAttribute::where(['product_id'=>$product_id,'size'=>$size])->update(['stock'=>$newStock]);
+    }
 }

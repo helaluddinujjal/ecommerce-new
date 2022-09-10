@@ -11,7 +11,7 @@ class AdminTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('admins')->delete();
+        \DB::table('admins')->delete();
         $adminRecords=[
             ['id'=>1,
             'name'=>'admin',

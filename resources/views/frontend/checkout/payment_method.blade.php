@@ -11,6 +11,15 @@
       </div>
       <div class="col-md-6">
         <div class="box payment-method">
+          <h4>PayUMoney</h4>
+          <p>Indian Payment System.</p>
+          <div class="box-footer text-center">
+            <input type="radio" autocomplete="off" name="payment_gatway" value="Payumoney">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="box payment-method">
           <h4>Payment gateway</h4>
           <p>VISA and Mastercard only.</p>
           <div class="box-footer text-center">

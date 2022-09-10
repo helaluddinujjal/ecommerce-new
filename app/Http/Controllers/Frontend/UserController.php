@@ -23,7 +23,7 @@ class UserController extends Controller
             Session::forget('confirm_msg');
             Session::forget('error_msg');
             $data=$request->all();
-            
+
             if (Auth::attempt(['email' => $data['login_email'], 'password' => $data['login_password']])) {
                 $statusCheck=User::where('email',$data['login_email'])->first();
             if ($statusCheck->status==0) {
@@ -40,10 +40,13 @@ class UserController extends Controller
             }else{
 
                 toast('Email or password not match','error');
-            } 
+            }
+        }
+        if (Auth::check()) {
+            return redirect('cart');
         }
         return view('frontend.user.login_registration');
-        
+
     }
     public function registration(Request $request){
         if ($request->isMethod('post')) {
@@ -86,11 +89,11 @@ class UserController extends Controller
                 $code=base64_encode($email);
                 $msg="Please click on bellow link to activate your account";
                 $subject="Confirm Your E-Commerce Account";
-                $message=['name'=>$data['reg_name'],'email'=>$email,'msg'=>$msg,'appName'=>$appName,'code'=>$code];
+                $message=['name'=>$name,'email'=>$email,'msg'=>$msg,'appName'=>$appName,'code'=>$code];
                 Mail::send('mail.register-confirm', $message, function ($message) use($email,$subject,$name){
                     $message->to($email, $name)->subject($subject);
                 });
-            
+
                 Session::flash('confirm_msg','Please confirm your email to activate your account.');
                 return redirect()->back();
             }
@@ -128,19 +131,19 @@ class UserController extends Controller
                 Mail::send('mail.registration', $message, function ($message) use($email,$subject,$name){
                     $message->to($email, $name)->subject($subject);
                 });
-            
+
                 toast('Your email account is activated. You can login now.','success');
                 return redirect('/login');
         }
         } else {
             abort(404);
         }
-        
-        
+
+
     }
     public function forgetPassword(Request $request){
         if ($request->isMethod('post')) {
-          
+
             $emailCount=User::where('email',$request->email)->count();
             if ($emailCount==0) {
                 Session::flash('error_msg',"Email does not exists!");
@@ -164,7 +167,7 @@ class UserController extends Controller
                 return redirect()->back();
             }
         }
-        
+
         return view('frontend.user.forget-password');
     }
     public function myAccount(Request $request){
@@ -188,13 +191,13 @@ class UserController extends Controller
             $userDetails=User::where('id',$userId)->first();
             $countries=Country::select('id','name')->get();
             //echo "<pre>";print_r($countries->toArray());die;
-            
+
             return view('frontend.user.account')->with(compact('userDetails','countries'));
         } else {
             toast('Please Login First','warning');
             return redirect('login');
         }
-        
+
     }
     public function getState(Request $request){
         if ($request->ajax()) {
@@ -217,7 +220,7 @@ class UserController extends Controller
             } else {
                 echo 'false';
             }
-            
+
         }
     }
     public function updatePassword(Request $request){

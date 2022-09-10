@@ -82,6 +82,16 @@
                     <td>{{$orderDetails->payment_method}}</td>
                   </tr>
                   <tr>
+                    <th>Payment Status</th>
+                    <td>@if ($orderDetails->payment_status==1)
+                     <p> <span class="badge badge-success">Paied</span></p>
+                    @elseif ($orderDetails->payment_status==2)
+                    <p><span class="badge badge-warning">Canceled</span></p>
+                    @elseif ($orderDetails->payment_status==3)
+                    <p><span class="badge badge-danger">Trunsaction Failed</span> </p>
+                    @endif</td>
+                  </tr>
+                  <tr>
                     <th>Payment Getway</th>
                     <td>{{$orderDetails->payment_gateway}}</td>
                   </tr>

@@ -20,7 +20,7 @@ use App\Category;
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-/* 
+/*
 ***********admin
 */
 Route::prefix('/admin')->namespace('Admin')->group(function(){
@@ -29,21 +29,21 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::get('/dashboard', 'AdminController@dashboard');
         Route::get('/logout', 'AdminController@logout');
 
-        /* 
+        /*
         ************Settings
         */
         Route::post('/check-password', 'AdminController@checkPass');
         Route::post('/update-password', 'AdminController@updatePass');
         Route::match(['get','post'],'/account-settings', 'AdminController@accountSettings');
         Route::match(['get','post'],'/site-settings', 'SettingsController@siteSettings');
-        
-        /* 
+
+        /*
         ************section
         */
         Route::get('/sections', 'SectionController@sections');
         Route::post('/update-status-section', 'SectionController@updateSectionStatus');
-        
-        /* 
+
+        /*
         ************categories
         */
         Route::get('categories','CategoryController@categories');
@@ -56,7 +56,7 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::get('/delete-category/{id}','CategoryController@deleteCategory');
 
 
-        /* 
+        /*
         ************products
         */
         Route::get('products','ProductController@products');
@@ -83,7 +83,7 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::post('/update-status-image', 'ProductController@updateStatusImage');
         Route::get('/delete-image/{id}','ProductController@deleteImage');
 
-        /* 
+        /*
         *******BRANDs
         */
         Route::get('brands','BrandController@brands');
@@ -91,8 +91,8 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::match(['get','post'],'/add-edit-brand/{id?}', 'BrandController@brandAddEdit');
         Route::get('/delete-brand/{id}', 'BrandController@deleteBrand');
         Route::post('/check-brand-url', 'BrandController@checkBrandUrl');
-      
-        /* 
+
+        /*
         *******Product filters
         */
         Route::get('product-filters','ProductFilterController@productFilters');
@@ -102,7 +102,7 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::get('/delete-filter-value/{id}', 'ProductFilterController@deleteFilterValue');
         Route::post('/check-filter-value', 'ProductFilterController@checkFilterValue');
 
-         /* 
+         /*
         *******Coupns
         */
         Route::get('coupons','CouponController@coupons');
@@ -110,14 +110,14 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::match(['get','post'],'/add-edit-coupon/{id?}', 'CouponController@couponAddEdit');
         Route::get('/delete-coupon/{id}', 'CouponController@deletecoupon');
 
-        /* 
+        /*
         *******Banners
         */
         Route::get('banners','BannerController@banners');
         Route::post('/update-status-banner', 'BannerController@updateBannerStatus');
         Route::match(['get','post'],'/add-edit-banner/{id?}', 'BannerController@bannerAddEdit');
         Route::get('/delete-banner/{id}', 'BannerController@deleteBanner');
-        /* 
+        /*
         *******Orders
         */
         Route::get('orders','OrderController@orders');
@@ -125,15 +125,15 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::post('/order-status-update', 'OrderController@updateOrderStatus');
         Route::get('/order-invoice/{id}', 'OrderController@orderInvoice');
         Route::get('/order-pdf/{id}', 'OrderController@orderPdf');
-        /* 
+        /*
         *******Orders Status
         */
         Route::get('order-statuses','OrderStatusController@orderStatuses');
         Route::post('/update-status-orderstatus','OrderStatusController@updateStatusOrderstatus');
         Route::match(['get','post'],'/add-edit-order-status/{id?}', 'OrderStatusController@addEditOrderStatus');
         Route::get('/delete-order-status/{id}', 'OrderStatusController@deleteorderStatus');
-        
-        /* 
+
+        /*
         *******Delivery
         */
         //delivery charge by country
@@ -145,16 +145,38 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::post('/update-status-delivery_charge_by_weight','DeliveryController@updateStatusDeliveryChargeByWeight');
         Route::match(['get','post'],'edit-delivery-charge-by-weight/{id}','DeliveryController@editDeliveryChargesByWeight');
         Route::get('delete-delivery-weight-value/{id}','DeliveryController@deliveryWeightValueDeleted');
-        /* 
+        /*
         *******Datepicker
         */
         Route::match(['get','post'],'datepicker/localpickup','DatepickerSettingsController@localpickupSettings');
         Route::match(['get','post'],'datepicker/delivery-pickup','DatepickerSettingsController@deliverypickupSettings');
+
+        /*
+        *******Pincode
+        */
+        //cod
+        Route::get('pincode/cod','PincodeController@pincodeCod');
+        Route::post('update-status-pincode_cod','PincodeController@updatePincodeCodStatus');
+        Route::match(['get','post'],'pincode/add-edit-cod/{id?}','PincodeController@addEditCod');
+        Route::get('delete-pincode-cod/{id}','PincodeController@pincodeCodDeleted');
+
+        //prepaid
+        Route::get('pincode/prepaid','PincodeController@pincodePrepaid');
+        Route::match(['get','post'],'pincode/add-edit-prepaid/{id?}','PincodeController@addEditPrepaid');
+        Route::get('pincode/prepaid','PincodeController@pincodePrepaid');
+        Route::post('update-status-pincode_prepaid','PincodeController@updatePincodePrepaidStatus');
+        Route::match(['get','post'],'pincode/add-edit-prepaid/{id?}','PincodeController@addEditPrepaid');
+        Route::get('delete-pincode-prepaid/{id}','PincodeController@pincodePrepaidDeleted');
+
+
+         //get state & city date using ajax
+        Route::match(['get','post'],'/get-state','PincodeController@getState');
+        Route::match(['get','post'],'/get-cities','PincodeController@getCities');
     });
     Route::match(['get','post'],'/', 'AdminController@login');
 });
 
-/* 
+/*
 ***********frontend
 */
 
@@ -168,7 +190,7 @@ Route::namespace('Frontend')->group(function(){
         $catUrls=Category::select('url')->where(['status'=>1,'section_id'=>$section->id])->get()->pluck('url')->toArray();
         foreach ($catUrls as $catUrl) {
             //category
-            Route::match(['get','post'],'/'.$section->url.'/'.$catUrl,'ProductController@listing'); 
+            Route::match(['get','post'],'/'.$section->url.'/'.$catUrl,'ProductController@listing');
         }
     }
     //single product page
@@ -182,7 +204,7 @@ Route::namespace('Frontend')->group(function(){
      Route::get('/cart','ProductController@cart');
      Route::post('/cart-qty-updated','ProductController@cartQtyUpdated');
      Route::post('/cart-item-deleted','ProductController@cartItemDeleted');
-     
+
      //user registration
      Route::match(['get','post'],'/login','UserController@Login')->name('login');
      Route::match(['get','post'],'/register','UserController@registration');
@@ -202,8 +224,18 @@ Route::namespace('Frontend')->group(function(){
         Route::match(['get','post'],'/checkout','ProductController@checkout');
         Route::get('/delivery-address-deleted/{id}','ProductController@deliveryAddressDeleted');
         Route::post('/get-delivery-charges','ProductController@getDeliveryCharges');
+        Route::post('/get-delivery-payment-method-by-pincode','ProductController@getDeliveryPaymentMethodbyPincode');
         Route::post('/delivery-address','ProductController@deliveryAddressFields');
         Route::get('/thanks','ProductController@thanks');
+
+        //paypal
+        Route::get('paypal/payment/{id}', 'PaypalController@payment')->name('paypal.checkout');
+        Route::get('paypal/cancel/{id}', 'PaypalController@cancel')->name('paypal.cancel');
+        Route::get('paypal/success/{id}', 'PaypalController@success')->name('paypal.success');
+
+        //payumoney
+        Route::get('payumoney', 'PayUMoneyController@payumoney');
+        Route::post('payumoney/response', 'PayUMoneyController@payumoneyResponse');
 
         //orders
         Route::get('/orders','OrderController@orders');
@@ -215,5 +247,9 @@ Route::namespace('Frontend')->group(function(){
      Route::match(['get','post'],'/get-state','UserController@getState');
      Route::match(['get','post'],'/get-cities','UserController@getCities');
 
+     //get country by pincode
+     Route::post('/get-country-pincode','ProductController@getCountryByPincode');
 
+     //varify payumoney payment by corn job
+     Route::get('payumoney/verify/{id?}', 'PayUMoneyController@payumoneyVerify');
 });

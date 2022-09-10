@@ -61,10 +61,11 @@
               <div class="form-group">
                 <label for="weekend">Weekend</label>
                 @php
-                if (!empty($datepickerSetting->weekend)) {
+                $weekend="";
+                if (!empty($datepickerSetting) && !empty($datepickerSetting->weekend)) {
                   $weekend=explode(',',$datepickerSetting->weekend);
                 }
-                if ($datepickerSetting->weekend==='0') {
+                if (!empty($datepickerSetting) && $datepickerSetting->weekend==='0') {
                   $weekend=explode(',',$datepickerSetting->weekend);
                 }
                 @endphp
@@ -82,7 +83,7 @@
                 <label for="cutOffDay">Cut Off day </label>
                 <select class="select2 form-control" name="cutOffDay" data-placeholder="Select Cut off Day" id="cutOffDay">
                   <option value="">Select cut off day</option>
-                  <option value="0" {{(!empty($datepickerSetting->cutOffDay) ||$datepickerSetting->cutOffDay==='0')&&$datepickerSetting->cutOffDay==0?"selected":''}}>Present Day</option>
+                  <option value="0" {{!empty($datepickerSetting) &&((!empty($datepickerSetting->cutOffDay) ||$datepickerSetting->cutOffDay==='0')&&$datepickerSetting->cutOffDay==0)?"selected":''}}>Present Day</option>
                   <option value="1" {{!empty($datepickerSetting->cutOffDay)&&$datepickerSetting->cutOffDay==1?"selected":''}}>Next Day</option>
                 </select>
               </div>

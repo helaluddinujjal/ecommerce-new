@@ -1,0 +1,4 @@
+{
+    "editor.wordWrap": "on",
+    "autoimport.filesToScan": "**/*.{ts,tsx,php}"
+}

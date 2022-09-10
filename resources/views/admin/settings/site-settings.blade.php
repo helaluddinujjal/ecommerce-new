@@ -50,7 +50,7 @@
                   <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
                       <b>Select Site Currency</b> 
-                    </li>
+                    </li> 
                   </ul>
                   <div class="form-group">
                           <select name="site_currency" id="site_currency" class="form-control">

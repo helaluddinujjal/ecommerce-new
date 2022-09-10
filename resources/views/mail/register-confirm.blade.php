@@ -12,7 +12,7 @@
         <tr><td>&nbsp;</td></tr>
         <tr><td>{{$msg}}</td></tr>
         <tr><td>&nbsp;</td></tr>
-        <tr><td><a href="{{ url('confirm/'.$code) }}">Confirm Account</a></td></tr>
+        <tr><td><a href="{{ url('confirm/'.$code) }}">Click for Confirm Account</a></td></tr>
         <tr><td>&nbsp;</td></tr>
         <tr><td>Thanks & Regards,</td></tr>
         <tr><td>{{$appName}}</td></tr>

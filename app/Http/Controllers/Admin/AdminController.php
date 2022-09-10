@@ -21,7 +21,7 @@ class AdminController extends Controller
 
     //settings
     public function checkPass(Request $request){
-        
+
         if (Hash::check($request->current_pass,Auth::guard('admin')->user()->password)) {
             echo 'true';
         }else {
@@ -96,7 +96,7 @@ class AdminController extends Controller
             ]);
             Session::flash('success_msg','Admin Details has been updated');
             return redirect()->back();
-            
+
         }
         return view('admin.settings_details')->with(compact('adminDetails'));
     }
@@ -123,12 +123,17 @@ class AdminController extends Controller
                return redirect()->back();
            }
         }
-        return view('admin.login');
+        if (Auth::guard('admin')->user()) {
+            return redirect('admin/dashboard');
+        }
+            return view('admin.login');
+
+
     }
     public function logout(){
         Auth::guard('admin')->logout();
         return redirect('admin');
     }
 
-    
+
 }

@@ -50,7 +50,7 @@
               @if (!is_numeric($userDetails->state))
                   <input id="state" name="billing_state" value="{{$userDetails->state}}"  type="text" class="form-control">
               @else
-                  <select id="state" autocomplete="off" name="billing_state" class="form-control">
+                  <select id="state" autocomplete="off" name="billing_state" class="form-control deliveryCity">
                       @foreach (App\Country::getStates($userDetails->country) as $state)
                           <option @if ($state->id==$userDetails->state)
                               selected="selected"
@@ -59,7 +59,7 @@
                   </select>
               @endif
             @else
-              <select id="state" name="billing_state" class="form-control"></select>
+              <select id="state" name="billing_state" class="form-control deliveryCity"></select>
             @endif
           </div>
         </div>
@@ -70,7 +70,7 @@
                     @if (!is_numeric($userDetails->city))
                         <input id="city" name="billing_city" value="{{$userDetails->city}}"  type="text" class="form-control">
                     @else
-                        <select id="city" autocomplete="off" name="billing_city" class="form-control">
+                        <select id="city" autocomplete="off" name="billing_city" class="form-control deliveryCity">
                             @foreach (App\Country::getcities($userDetails->state) as $city)
                                 <option @if ($city->id==$userDetails->city)
                                     selected="selected"
@@ -79,14 +79,14 @@
                         </select>
                     @endif
                 @else
-                    <select id="city" name="billing_city" class="form-control"></select>
+                    <select id="city" name="billing_city" class="form-control deliveryCity"></select>
                 @endif
             </div>
         </div>
         <div class="col-md-6 col-lg-3" id="pincodeSection">
           <div class="form-group">
             <label for="pincode">Pincode</label>
-            <input id="pincode" name="billing_pincode" value="{{!empty($userDetails->pincode)?$userDetails->pincode:''}}"  type="text" class="form-control">
+            <input id="pincode" name="billing_pincode" value="{{!empty($userDetails->pincode)?$userDetails->pincode:''}}"  type="text" class="form-control billingPincode">
           </div>
         </div>
         <div class="col-md-6">
@@ -112,6 +112,6 @@
             <input id="billing_email" name="billing_email" type="text" class="form-control" value="{{$userDetails->email}}">
           </div>
         </div>
-    </div>   
+    </div>
     <!-- /.row-->
   </div>

@@ -128,7 +128,7 @@
                         <div class="col-md-6 col-lg-3" id="pincodeSection">
                             <div class="form-group">
                                 <label for="pincode">Pincode</label>
-                                <input id="pincode" placeholder="Input your pincode" name="delivery_pincode" type="text" class="form-control">
+                                <input id="pincode" placeholder="Input your pincode" name="delivery_pincode" type="text" class="form-control deliveryPincode">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -136,7 +136,7 @@
                                 <label for="delivery_mobile">Telephone</label>
                                 <div class="input-group">
                                     <div class="input-group-addon" id="countryEmoji">
-                                    
+
                                     </div>
                                     <input id="delivery_mobile" name="delivery_mobile" placeholder="Input your mobile" type="text" class="form-control">
                                 </div>

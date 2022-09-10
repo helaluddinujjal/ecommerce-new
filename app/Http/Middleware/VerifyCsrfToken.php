@@ -33,7 +33,12 @@ class VerifyCsrfToken extends Middleware
         '/admin/update-status-orderstatus',
         '/admin/update-status-delivery_charge',
         '/admin/update-status-delivery_charge_by_weight',
+        '/admin/update-status-pincode_cod',
+        '/admin/update-status-pincode_prepaid',
+        '/admin/get-state',
+        '/admin/get-cities',
         '/get-attr-price',
         '/cart-qty-updated',
+        '/get-country-pincode',
     ];
 }
