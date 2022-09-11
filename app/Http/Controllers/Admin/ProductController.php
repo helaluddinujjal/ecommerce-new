@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
-    /* 
+    /*
     ******Product
      */
     public function products(){
@@ -72,7 +72,7 @@ class ProductController extends Controller
         if(file_exists($path.$video->product_video)){
             unlink($path.$video->product_video);
         }
-       
+
         Product::where('id',$id)->update(['product_video'=>'']);
         Session::flash('success_msg','Product video has been deleted successfully.');
         return redirect()->back();
@@ -88,7 +88,7 @@ class ProductController extends Controller
             $product=new Product;
             $productData='';
             $massege="Product has been created";
-            
+
         } else {
             $title="Edit Products";
             $productData=Product::find($id);
@@ -100,7 +100,7 @@ class ProductController extends Controller
             //get section id
             $categoryDetails=Category::find($data['category_id']);
             //slug
-            
+
             if (!empty($data['url'])) {
                 $data['url']=Str::slug($data['url']);
             }else {
@@ -149,8 +149,8 @@ class ProductController extends Controller
                 'url.unique'=>"Url already exists.Please change the Url",
                 'product_image.mimes'=>"Image must be jpeg/jpg/png format",
             ];
-            $this->validate($request,$rule,$customMsg); 
-            // check image field has file 
+            $this->validate($request,$rule,$customMsg);
+            // check image field has file
             if ($request->hasFile('main_image')) {
                 //get temporary name
                 $tempName=$request->file('main_image');
@@ -168,7 +168,7 @@ class ProductController extends Controller
                     Image::make($tempName)->save($largePath);
                     Image::make($tempName)->resize(520,600)->save($mediumPath);
                     Image::make($tempName)->resize(260,300)->save($smallPath);
-                    
+
                 }
             }elseif (!empty($productData->main_image)) {
                 $imgName=$productData->main_image;
@@ -177,7 +177,7 @@ class ProductController extends Controller
                 $imgName='';
             }
 
-            // check video field has file 
+            // check video field has file
             if ($request->hasFile('product_video')) {
                 //get temporary name
                 $tempName=$request->file('product_video');
@@ -235,7 +235,7 @@ class ProductController extends Controller
             }else{
                 $data['is_featured']='No';
             }
-            
+
             $product->product_name=$data['product_name'];
             $product->product_code=str_replace(' ','-',$data['product_code']);
             $product->section_id=$categoryDetails['section_id'];
@@ -252,6 +252,7 @@ class ProductController extends Controller
             $product->sleeve=$data['sleeve'];
             $product->fit=$data['fit'];
             $product->occation=$data['occation'];
+            $product->group_code=$data['group_code'];
             $product->product_video=$product_video;
             $product->main_image=$imgName;
             $product->status=1;
@@ -281,12 +282,12 @@ class ProductController extends Controller
         // echo "<pre>";print_r($categories);die;
         $brands=Brand::where('status',1)->get();
         return view('admin.product.add-edit')->with(compact('title','categories','productData','fabricArray','sleeveArray','patternArray','fitArray','occationArray','brands','productFilters'));
-        
+
     }
 
-    /* 
+    /*
     ******Product Attribute
-     */ 
+     */
     public function addAttribute(Request $request,$id){
         $productData=Product::select(['id','product_name','product_code','product_color','product_price','main_image'])->with('attributes')->find($id);
         // $productData=json_decode(json_encode($productData),true);
@@ -355,9 +356,9 @@ class ProductController extends Controller
     }
 
 
-    /* 
+    /*
     ******Product Image
-     */ 
+     */
     public function addImage(Request $request,$id){
         $productData=Product::select(['id','product_name','product_code','product_color','product_price','main_image'])->with('images')->find($id);
         // $productData=json_decode(json_encode($productData),true);
@@ -406,7 +407,7 @@ class ProductController extends Controller
         }
     }
     public function deleteImage($id){
-        
+
         $images=ProductImage::where('id',$id)->first();
         $imgName=$images->image;
         $largePath=public_path('images/product/large/'.$imgName);
@@ -479,7 +480,7 @@ class ProductController extends Controller
             }else {
                 $getData=str_replace(' ','-',$data['getData']);
                 $countData=ProductAttribute::where(['product_id'=>$data['getId'],'sku'=>$data['getData']])->count();
-                
+
             }
             if ($countData>0) {
                 $countData=1;

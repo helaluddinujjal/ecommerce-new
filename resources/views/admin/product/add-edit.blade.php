@@ -27,7 +27,7 @@
     <form @if (!empty($productData->id))
       action="{{url('admin/add-edit-product',$productData->id)}}"
     @else
-    action="{{url('admin/add-edit-product')}}"  
+    action="{{url('admin/add-edit-product')}}"
     @endif method="POST" enctype="multipart/form-data">
       @csrf
       <div class="row">
@@ -51,51 +51,51 @@
                   <div class="form-group">
                     <label for="productName">Product Name</label>
                     <input type="text" id="productName" class="form-control" name="product_name" placeholder="Enter product Name" @if (!empty($productData->product_name))
-                      value="{{$productData->product_name}}"  
+                      value="{{$productData->product_name}}"
                     @else
-                    value="{{old('product_name')}}"  
+                    value="{{old('product_name')}}"
                     @endif>
                   </div>
                   <div class="form-group">
                     <label for="productCode">Product Code</label>
                     <input type="text" getId="{{!empty($productData->id)?$productData->id:''}}" getPath="product-code" onpaste="setTimeout(checkCode,1000)" onkeyup="checkCode()" id="productCode" class="form-control codeCheck" name="product_code" placeholder="Enter Product Code" @if (!empty($productData->product_code))
-                      value="{{$productData->product_code}}"  
+                      value="{{$productData->product_code}}"
                     @else
-                    value="{{old('product_code')}}"  
+                    value="{{old('product_code')}}"
                     @endif>
                     <p id="codeResult"></p>
                   </div>
                   <div class="form-group">
                     <label for="productColor">Product Color</label>
                     <input type="text" id="productColor" class="form-control" name="product_color" placeholder="Enter Product Color" @if (!empty($productData->product_color))
-                      value="{{$productData->product_color}}"  
+                      value="{{$productData->product_color}}"
                     @else
-                    value="{{old('product_color')}}"  
+                    value="{{old('product_color')}}"
                     @endif>
                   </div>
                   <div class="form-group">
                     <label for="productWeight">Product Weight(g)</label>
                     <input type="text" id="productWeight" class="form-control" name="product_weight" placeholder="Enter Product Weight" @if (!empty($productData->product_weight))
-                      value="{{$productData->product_weight}}"  
+                      value="{{$productData->product_weight}}"
                     @else
-                    value="{{old('product_weight')}}"  
+                    value="{{old('product_weight')}}"
                     @endif>
                   </div>
-                 
+
                   <div class="form-group">
                     <label for="productPrice">Product Price({{settings('site_currency')}})</label>
                     <input type="text" id="productPrice" class="form-control" name="product_price" placeholder="Enter Product Price" @if (!empty($productData->product_price))
-                    value="{{$productData->product_price}}"  
+                    value="{{$productData->product_price}}"
                   @else
-                  value="{{old('product_price')}}"  
+                  value="{{old('product_price')}}"
                   @endif>
                   </div>
                   <div class="form-group">
                     <label for="productDiscount">Product Discount(%)</label>
                     <input type="text" id="productDiscount" class="form-control" name="product_discount" placeholder="Enter product Discount" @if (!empty($productData->product_discount))
-                    value="{{$productData->product_discount}}"  
+                    value="{{$productData->product_discount}}"
                   @else
-                  value="{{old('product_discount')}}"  
+                  value="{{old('product_discount')}}"
                   @endif>
                   </div>
                   <div class="form-group">
@@ -107,6 +107,14 @@
                     <label for="washCare">Wash Care</label>
                     <textarea id="washCare" class="form-control" rows="4" name="wash_care" placeholder="Enter Wash Care" >@if (!empty($productData->wash_care)){{$productData->wash_care}}@else{{old('wash_care')}}@endif
                   </textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="productWeight">Group Code</label>
+                    <input type="text" id="group_code" class="form-control" name="group_code" placeholder="Enter Group Code" @if (!empty($productData->group_code))
+                      value="{{$productData->group_code}}"
+                    @else
+                    value="{{old('group_code')}}"
+                    @endif>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -130,7 +138,7 @@
                         @foreach ($categories as $section)
                           <optgroup label="{{$section->name}}""></optgroup>
                             @foreach ($section->categories as $parentCat)
-                              <option 
+                              <option
                               value="{{$parentCat->id}}"
                               @if (!empty(old('category_id'))&&$parentCat->id==old('category_id'))
                                 selected=""
@@ -234,9 +242,9 @@
                       @endif>{{$occation->name}}</option>
                       @endforeach
                     </select>
-                  </div> 
+                  </div>
                   @endif
-                  
+
                   <div class="form-group clearfix">
                     <div class="icheck-primary d-inline">
                       <input type="checkbox" value="1"  id="is_featured" name="is_featured" id="is_featured" @if (isset($productData->is_featured)&&$productData->is_featured=="Yes")
@@ -263,7 +271,7 @@
                     @if (!empty($productData->main_image))
                     <div class="form-group mt-2">
                       <label for="productDescription">Old Image</label>
-                      <img width="100" src="{{asset('images/product/small/'.$productData->main_image)}}" alt="{{$productData->product_name}}"> &#8214; 
+                      <img width="100" src="{{asset('images/product/small/'.$productData->main_image)}}" alt="{{$productData->product_name}}"> &#8214;
                       <a class="confirm-delete" href="javascript:valid(0)" record="product-image" recorded="{{$productData->id}}">Delete</a>
                     </div>
                     @endif
@@ -286,7 +294,7 @@
                         <div class="embed-responsive embed-responsive-4by3">
                           <iframe class="embed-responsive-item" src="{{asset('videos/product/'.$productData->product_video)}}" title="{{$productData->product_name}}"></iframe>
                         </div>
-                      </iframe> &#8214; 
+                      </iframe> &#8214;
                       <a class="confirm-delete" href="javascript:valid(0)" record="product-video" recorded="{{$productData->id}}">Delete</a>
                     </div>
                     @endif
@@ -315,9 +323,9 @@
               <div class="form-group">
                 <label for="url">Product URL</label>
                 <input type="text" getId="{{!empty($productData->id)?$productData->id:''}}" getPath="product-url" onpaste="setTimeout(checkSlug,1000)" onkeyup="checkSlug()" id="url" class="form-control" name="url" placeholder="Enter URL" @if (!empty($productData->url))
-                value="{{$productData->url}}"  
+                value="{{$productData->url}}"
               @else
-              value="{{old('url')}}"  
+              value="{{old('url')}}"
               @endif>
               <p id="result"></p>
               </div>
@@ -333,7 +341,7 @@
               </div>
               <div class="form-group">
                 <label for="meta_keyword"> Meta Keyword</label>
-                <textarea id="meta_keyword" class="form-control" rows="4" name="meta_keyword" placeholder="Enter Meta Keyword">@if(!empty($productData->meta_keyword)){{$productData->meta_keyword}}@else{{old('meta_keyword')}}  
+                <textarea id="meta_keyword" class="form-control" rows="4" name="meta_keyword" placeholder="Enter Meta Keyword">@if(!empty($productData->meta_keyword)){{$productData->meta_keyword}}@else{{old('meta_keyword')}}
                 @endif
               </textarea>
               </div>

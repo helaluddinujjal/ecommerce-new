@@ -134,11 +134,15 @@ class ProductController extends Controller
             $productDetails->increment('views');
             ProductView::createProductViewLog($productDetails);
         }
+        $groupProducts=[];
+        if(!empty($productDetails->group_code)){
+            $groupProducts = Product::select('product_name','url','main_image')->where('id','!=',$productDetails->id)->where(['group_code'=>$productDetails->group_code,'status'=>1])->get();
+        }
         $lastProductViews = ProductView::select('product_id', 'url')->where('user_id', Auth::id())->orWhere('ip', \Request::getClientIp())->orWhere('session_id', \Request::getSession()->getId())->orderBy('updated_at', 'Desc')->limit(3)->get();
         $relatedProducts = Product::where(['category_id' => $productDetails->category_id, 'section_id' => $productDetails->section_id])->where('id', '!=', $productDetails->id)->inRandomOrder()->limit(3)->get();
         $totalStock = ProductAttribute::where('product_id', $productDetails->id)->sum('stock');
         Session::put('filter_velue', 'false');
-        return view('frontend.product.detail')->with(compact('productDetails', 'totalStock', 'relatedProducts', 'lastProductViews'));
+        return view('frontend.product.detail')->with(compact('productDetails', 'totalStock', 'relatedProducts', 'lastProductViews','groupProducts'));
     }
     public function getAttrPrice(Request $request)
     {

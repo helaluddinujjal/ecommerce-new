@@ -32,6 +32,7 @@ class CreateProductsTable extends Migration
             $table->string('sleeve');
             $table->string('fit');
             $table->string('occation');
+            $table->string('group_code')->nullable();
             $table->string('url');
             $table->string('meta_title');
             $table->string('meta_description');

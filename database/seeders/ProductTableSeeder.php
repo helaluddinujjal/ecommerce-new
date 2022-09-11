@@ -32,6 +32,7 @@ class ProductTableSeeder extends Seeder
                 'sleeve'=> '',
                 'fit'=> '',
                 'occation'=> '',
+                'group_code'=>'100',
                 'url'=>'blue-casual-t-shirts',
                 'meta_title'=> '',
                 'meta_description'=> '',
@@ -58,6 +59,7 @@ class ProductTableSeeder extends Seeder
                 'sleeve'=> '',
                 'fit'=> '',
                 'occation'=> '',
+                'group_code'=>'100',
                 'url'=>'red-casual-t-shirts',
                 'meta_title'=> '',
                 'meta_description'=> '',
@@ -65,7 +67,7 @@ class ProductTableSeeder extends Seeder
                 'is_featured'=> 'Yes',
                 'status'=> 1,
             ],
-            
+
         ];
 
         Product::insert($productRecord);
