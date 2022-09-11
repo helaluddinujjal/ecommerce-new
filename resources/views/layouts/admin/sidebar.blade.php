@@ -106,7 +106,7 @@
                 </li>
                 {{-- Catalogues --}}
                 @php
-                    if (Session::get('page') == 'admin-section' || Session::get('page') == 'admin-category' || Session::get('page') == 'admin-brand' || Session::get('page') == 'admin-filter' || Session::get('page') == 'admin-coupon' || Session::get('page') == 'admin-order' || Session::get('page') == 'admin-order-status') {
+                    if (Session::get('page') == 'admin-section' || Session::get('page') == 'admin-category' || Session::get('page') == 'admin-brand' || Session::get('page') == 'admin-filter' || Session::get('page') == 'admin-coupon' || Session::get('page') == 'admin-order' || Session::get('page') == 'admin-order-status' || Session::get('page') == 'admin-user') {
                         $active = 'menu-is-opening menu-open';
                     } else {
                         $active = '';
@@ -210,6 +210,19 @@
                             <a href="{{ url('admin/order-statuses') }}" class="nav-link {{ $active }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Order Statuses</p>
+                            </a>
+                        </li>
+                        @php
+                            if (Session::get('page') == 'admin-user') {
+                                $active = 'active';
+                            } else {
+                                $active = '';
+                            }
+                        @endphp
+                        <li class="nav-item">
+                            <a href="{{ url('admin/users') }}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>User List</p>
                             </a>
                         </li>
                     </ul>

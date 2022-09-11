@@ -172,6 +172,10 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
          //get state & city date using ajax
         Route::match(['get','post'],'/get-state','PincodeController@getState');
         Route::match(['get','post'],'/get-cities','PincodeController@getCities');
+
+        //user controller
+        Route::get('users','UserController@users');
+        Route::post('/update-status-user', 'UserController@updateUserStatus');
     });
     Route::match(['get','post'],'/', 'AdminController@login');
 });

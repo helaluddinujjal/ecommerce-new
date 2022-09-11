@@ -35,6 +35,7 @@ class VerifyCsrfToken extends Middleware
         '/admin/update-status-delivery_charge_by_weight',
         '/admin/update-status-pincode_cod',
         '/admin/update-status-pincode_prepaid',
+        '/admin/update-status-user',
         '/admin/get-state',
         '/admin/get-cities',
         '/get-attr-price',
