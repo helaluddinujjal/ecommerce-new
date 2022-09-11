@@ -364,6 +364,50 @@ class ProductController extends Controller
     {
         $userDetails = User::where('id', Auth::user()->id)->first();
         if ($request->isMethod('post')) {
+
+            //website secuirity
+
+            $cartItems = Cart::userCartItem();
+            foreach ($cartItems as $key => $cart) {
+                //product status check and remove from cart
+                $getProductStatus=Product::getProductStatus($cart->product_id);
+                if($getProductStatus==0){
+                   // Product::deleteCartProduct($cart->product_id);
+                    Session::flash('error_msg', $cart->product->product_name.' Product is not available.So remove from cart and try again');
+                    return redirect("/cart");
+                }
+
+                //product stock check and remove from cart
+                $getProductStock=Product::getProductStock($cart->product_id,$cart->size);
+                if($getProductStock==0){
+                   // Product::deleteCartProduct($cart->product_id);
+
+                  Session::flash('error_msg', $cart->product->product_name.' Product is out of stock.So remove from cart and try again');
+                    return redirect("/cart");
+                }
+
+                //product attribute stock check and remove from cart
+                $getAttributeStock=Product::getAttributeCount($cart->product_id,$cart->size);
+                if($getAttributeStock==0){
+                   // Product::deleteCartProduct($cart->product_id);
+                    Session::flash('error_msg', $cart->product->product_name.' Product attribute is out of stock.So remove from cart and try again');
+                    return redirect("/cart");
+                }
+                //prevemt disable category product to checkout
+                $getCategoryStatus=Product::getCategoryStatus($cart->product->category_id);
+                if($getCategoryStatus==0){
+                   // Product::deleteCartProduct($cart->product_id);
+                    Session::flash('error_msg', $cart->product->product_name.' Product category is disable.So remove from cart and try again');
+                    return redirect("/cart");
+                }
+                //prevent disable brand product to checkout
+                $getBrandStatus=Product::getBrandStatus($cart->product->brand_id);
+                if($getBrandStatus==0){
+                   // Product::deleteCartProduct($cart->product_id);
+                    Session::flash('error_msg', $cart->product->product_name.' Product brand is disable.So remove from cart and try again');
+                    return redirect("/cart");
+                }
+            }
             $rules = [
                 "billing_first_name" => "required",
                 "billing_last_name" => "required",

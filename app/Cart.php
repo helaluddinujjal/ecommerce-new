@@ -18,7 +18,7 @@ class Cart extends Model
     public static function userCartItem(){
         if (Auth::check()) {
             $userCart=Cart::with(['product'=>function($query){
-                $query->select('id','category_id','product_name','product_color','product_code','main_image','url');
+                $query->select('id','category_id','brand_id','product_name','product_color','product_code','main_image','url');
             }])->where('user_id',Auth::user()->id)->orderBy('id','Desc')->get();
         } else {
             $userCart=Cart::with(['product'=>function($query){
