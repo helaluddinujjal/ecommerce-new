@@ -82,7 +82,7 @@
                                         <div class="mt-2 ml-2">
                                             <p><strong>More Color</strong></p>
                                             @foreach ($groupProducts as $groupProduct)
-                                                <a href="{{ url('/product/' . $groupProduct->url) }}">
+                                                <a href="{{ url('/product/' . $groupProduct->url) }}" title="More Product">
                                                     @php
                                                         $image_path = public_path('images/product/small/' . $groupProduct->main_image);
                                                     @endphp
@@ -95,6 +95,7 @@
                                                             width="40" height="40"
                                                             alt="{{ $groupProduct->product_name }}">
                                                     @endif
+                                                </a>
                                             @endforeach
 
                                         </div>

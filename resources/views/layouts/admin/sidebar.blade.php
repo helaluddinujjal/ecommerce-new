@@ -225,6 +225,19 @@
                                 <p>User List</p>
                             </a>
                         </li>
+                        @php
+                            if (Session::get('page') == 'admin-cms-pages') {
+                                $active = 'active';
+                            } else {
+                                $active = '';
+                            }
+                        @endphp
+                        <li class="nav-item">
+                            <a href="{{ url('admin/cms-pages') }}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>CMS Pages</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <!-- Product Menu -->

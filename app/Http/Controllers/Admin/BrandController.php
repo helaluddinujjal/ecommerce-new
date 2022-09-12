@@ -33,10 +33,11 @@ class BrandController extends Controller
         }
     }
     public function brandAddEdit(Request $request,$id=null){
-        
+
         if($id==""){
             $title="Add Brand";
             $brand=new Brand;
+            $brand->status=1;
             $brandData=array();
             $massege="Brand has been saved";
         }else {
@@ -71,14 +72,13 @@ class BrandController extends Controller
                 'url.unique'=>"Url already exists.Please change the Url",
                 'url.required'=>"Url must not be empty",
             ];
-            $this->validate($request,$rule,$customMsg); 
-            
+            $this->validate($request,$rule,$customMsg);
+
             $brand->name=$data['name'];
             $brand->url=$data['url'];
             $brand->meta_title=$data['meta_title'];
             $brand->meta_description=$data['meta_description'];
             $brand->meta_keyward=$data['meta_keyward'];
-            $brand->status=1;
             $brand->save();
             Session::flash('success_msg',$massege);
             return redirect('admin/brands');

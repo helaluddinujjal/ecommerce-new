@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Section;
 use App\Category;
+use App\CmsPage;
+
 //Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -176,6 +178,16 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         //user controller
         Route::get('users','UserController@users');
         Route::post('/update-status-user', 'UserController@updateUserStatus');
+
+          /*
+        ************Cms Pages
+        */
+        Route::get('cms-pages','CmsPageController@cmsPages');
+        Route::post('/update-status-cms_page', 'CmsPageController@updateStatusCmsPage');
+        Route::match(['get','post'],'/add-edit-cms-page/{id?}', 'CmsPageController@addEditCmsPage');
+        Route::post('/update-status-nav_cms_page', 'CmsPageController@isNavStatusCmsPage');
+        Route::get('/delete-cms/{id}', 'CmsPageController@deleteCmsPage');
+        Route::post('/check-cms-url', 'CmsPageController@checkCmsPageUrl');
     });
     Route::match(['get','post'],'/', 'AdminController@login');
 });
@@ -196,6 +208,11 @@ Route::namespace('Frontend')->group(function(){
             //category
             Route::match(['get','post'],'/'.$section->url.'/'.$catUrl,'ProductController@listing');
         }
+    }
+    //cms page
+    $cmsPages=CmsPage::select('url')->where('status',1)->get()->pluck('url')->toArray();
+    foreach ($cmsPages as $page) {
+        Route::get('/'.$page,'CmsController@cmsPage');
     }
     //single product page
     //Route::get('/{section}/{category}/product/{url}', 'ProductController@productDetails')->name('custom_product');
@@ -253,7 +270,8 @@ Route::namespace('Frontend')->group(function(){
 
      //get country by pincode
      Route::post('/get-country-pincode','ProductController@getCountryByPincode');
-
+     //get search result
+     Route::get('/search-products','ProductController@listing');
      //varify payumoney payment by corn job
      Route::get('payumoney/verify/{id?}', 'PayUMoneyController@payumoneyVerify');
 });

@@ -15,13 +15,13 @@ use App\Section;
           <div class="col-lg-6 text-center text-lg-right">
             <ul class="menu list-inline mb-0">
               @if (Auth::check())
-                <li class="list-inline-item"><a href="{{url('my-account')}}">My Account</a></li> 
-                <li class="list-inline-item"><a href="{{url('logout')}}">Logout</a></li> 
+                <li class="list-inline-item"><a href="{{url('my-account')}}">My Account</a></li>
+                <li class="list-inline-item"><a href="{{url('logout')}}">Logout</a></li>
               @else
                 <li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
-                <li class="list-inline-item"><a href="{{url('register')}}">Register</a></li> 
+                <li class="list-inline-item"><a href="{{url('register')}}">Register</a></li>
               @endif
-              
+
               <li class="list-inline-item"><a href="contact.html">Contact</a></li>
               <li class="list-inline-item"><a href="#">Recently viewed</a></li>
             </ul>
@@ -55,8 +55,8 @@ use App\Section;
         </div>
       </div>
       <!-- *** TOP BAR END ***-->
-      
-      
+
+
     </div>
     <nav class="navbar navbar-expand-lg">
       <div class="container"><a href="{{url('/')}}" class="navbar-brand home"><img src="{{asset('/images/frontend/img/logo.png')}}" alt="Obaju logo" class="d-none d-md-inline-block"><img src="{{asset('/images/frontend/img/logo-small.png')}}" alt="Obaju logo" class="d-inline-block d-md-none"><span class="sr-only">Obaju - go to homepage</span></a>
@@ -70,13 +70,13 @@ use App\Section;
             @foreach ($sections as $section)
                @php
                    $countCategory=count($section['categories']);
-               @endphp 
+               @endphp
             @if ($countCategory>0)
             <li class="nav-item dropdown menu-large"><a href="{{url($section['url'])}}" data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">{{$section['name']}}<b class="caret"></b></a>
               <ul class="dropdown-menu megamenu">
                 <li>
                   <div class="row">
-                    @foreach ($section['categories'] as $category)  
+                    @foreach ($section['categories'] as $category)
                       <div class="col-md-6 col-lg-3 @php
                           if ($countCategory==1) {
                             echo "col-md-6 col-lg-9";
@@ -91,7 +91,7 @@ use App\Section;
                           <ul class="list-unstyled mb-3">
                             @php
                               $childcategory=count($category['childcategories']);
-                            @endphp 
+                            @endphp
                         <h5 @if ($childcategory==0)
                             style="border-bottom:0px "
                         @endif> <a href="{{url('/'.$section['url'].'/'.$category['url'])}}">{{$category['category_name']}}</a></h5>
@@ -121,11 +121,11 @@ use App\Section;
     </nav>
     <div id="search" class="collapse">
       <div class="container">
-        <form role="search" class="ml-auto">
+        <form  action="{{url('/search-products')}}" method="GET" class="ml-auto">
           <div class="input-group">
-            <input type="text" placeholder="Search" class="form-control">
+            <input type="text" placeholder="Search" name="search" class="form-control">
             <div class="input-group-append">
-              <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+              <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
             </div>
           </div>
         </form>

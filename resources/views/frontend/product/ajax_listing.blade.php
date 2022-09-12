@@ -1,4 +1,5 @@
 {{-- //nav Pagination --}}
+@if (!isset($_REQUEST['search']))
 <div class="box info-bar">
   <div class="row">
     <div class="col-md-12 col-lg-4 products-showing">Showing <strong id="firstItem">{{!empty($productDetails->firstItem())?$productDetails->firstItem():0}}</strong> to <strong id="lastItem">{{$productDetails->lastItem()}}</strong> of <strong id="totalItem">{{$productDetails->total()}}</strong> products</div>
@@ -30,9 +31,10 @@
     </div>
   </div>
 </div>
+@endif
 <div class="row products">
   @if ($productDetails->count()>0)
-  @foreach ($productDetails as $proDetail)   
+  @foreach ($productDetails as $proDetail)
   @php
   $path=public_path('images/product/small/'.$proDetail->main_image);
   if (!empty($proDetail->main_image)&&file_exists($path)) {
@@ -51,7 +53,7 @@
           </div><a href="{{url('product/'.$proDetail->url)}}" class="invisible"><img src="{{$imgUrl}}" alt="" class="img-fluid"></a>
           <div class="text">
           <h3><a href="{{url('product/'.$proDetail->url)}}">{{$proDetail->product_name}}</a></h3>
-          <p class="price"> 
+          <p class="price">
             @php
                 $discount_data= App\Product::getDiscountPrice($proDetail->id);
             @endphp
@@ -61,14 +63,14 @@
             {{settings('site_currency')}}{{$proDetail->product_price}}
             @endif
           </p>
-          <p class="buttons"><a href="{{url('product/'.$proDetail->url)}}" class="btn btn-outline-secondary">View detail</a><a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a></p>
+          <p class="buttons"><a href="{{url('product/'.$proDetail->url)}}" class="btn btn-outline-secondary">View detail</a><a href="{{url('product/'.$proDetail->url)}}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a></p>
           </div>
           <!-- /.text-->
           @if (!empty($proDetail->brand->name))
               <div class="ribbon sale">
                 <div class="theribbon">{{$proDetail->brand->name}}</div>
                 <div class="ribbon-background"></div>
-              </div> 
+              </div>
           @endif
           @if (App\Product::countProductStock($proDetail->id)<1)
             <div class="ribbon red">
@@ -86,20 +88,23 @@
     <div class="product d-flex vh-100">
       <h2 class="text-muted m-auto">Product is not available</h2>
     </div>
-  </div>    
+  </div>
   @endif
-   
+
    <!-- /.products-->
   </div>
   {{-- //pagignation --}}
+  @if (!isset($_REQUEST['search']))
   <div class="pages">
     <nav id="products" aria-label="Page navigation example" class="d-flex justify-content-center">
       @if (isset($_GET['sort-by'])&&!empty($_GET['sort-by']))
         {{$productDetails->appends(['sort-by'=>$_GET['sort-by']])->links()}}
       @else
       @if ($productDetails->total()>$productDetails->perPage())
-        {{$productDetails->links()}}      
+        {{$productDetails->links()}}
       @endif
       @endif
     </nav>
   </div>
+  @endif
+

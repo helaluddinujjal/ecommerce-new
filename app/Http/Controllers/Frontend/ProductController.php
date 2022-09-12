@@ -101,7 +101,22 @@ class ProductController extends Controller
         $getUrl = explode('/', $getUrl);
         $countUrl = count($getUrl);
         $sec = $getUrl[0];
-        if ($countUrl > 1) {
+        if (isset($_REQUEST['search']) &&!empty($_REQUEST['search'])){
+            $search = $_REQUEST['search'];
+            $categoryDetails['breadcumbs'] =$search;
+            $categoryDetails['categoryDetails']['category_name'] ="Search Result";
+            $categoryDetails['categoryDetails']['description'] ="Showing result for ".$search;
+            $productDetails = Product::with('brand')->where(function ($query) use ($search) {
+                $query->where('product_name', 'like', '%' . $search . '%')
+                    ->orWhere('product_code', 'like', '%' . $search . '%')
+                    ->orWhere('product_color', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            })->where('status', 1)->get();
+            $cat = '';
+            $sec = '';
+            //return $categoryDetails;
+            return view('frontend/product/listing')->with(compact('categoryDetails', 'productDetails','cat','sec'));
+        }elseif ($countUrl > 1) {
             $cat = $getUrl[1];
 
             $countCategory = Category::where(['url' => $cat, 'status' => 1])->count();
