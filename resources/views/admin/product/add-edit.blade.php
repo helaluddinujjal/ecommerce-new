@@ -100,12 +100,12 @@
                   </div>
                   <div class="form-group">
                     <label for="productDescription">Product Description</label>
-                    <textarea id="productDescription" class="form-control" rows="4" name="description" placeholder="Enter product Description" >@if (!empty($productData->description)){{$productData->description}}@else{{old('description')}}@endif
+                    <textarea id="productDescription" class="form-control summernote-area" rows="4" name="description" placeholder="Enter product Description" >@if (!empty($productData->description)){{$productData->description}}@else{{old('description')}}@endif
                   </textarea>
                   </div>
                   <div class="form-group">
                     <label for="washCare">Wash Care</label>
-                    <textarea id="washCare" class="form-control" rows="4" name="wash_care" placeholder="Enter Wash Care" >@if (!empty($productData->wash_care)){{$productData->wash_care}}@else{{old('wash_care')}}@endif
+                    <textarea id="washCare" class="form-control summernote-area" rows="4" name="wash_care" placeholder="Enter Wash Care" >@if (!empty($productData->wash_care)){{$productData->wash_care}}@else{{old('wash_care')}}@endif
                   </textarea>
                   </div>
                   <div class="form-group">

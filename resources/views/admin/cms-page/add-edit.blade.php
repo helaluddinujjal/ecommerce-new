@@ -54,7 +54,7 @@
 
               <div class="form-group">
                 <label for="pageDescription">Description</label>
-                <textarea id="pageDescription" class="form-control" name="description" placeholder="Enter Page description" cols="100" rows="30">@if (!empty($cmsPageData->description)){{$cmsPageData->description}}@else{{old('description')}}
+                <textarea id="pageDescription" class="form-control summernote-area" name="description" placeholder="Enter Page description" cols="100" rows="30">@if (!empty($cmsPageData->description)){{$cmsPageData->description}}@else{{old('description')}}
                 @endif
                 </textarea>
               </div>

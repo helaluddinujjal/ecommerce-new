@@ -91,4 +91,13 @@ class OrderController extends Controller
        // return $pdf->setPaper('A4', 'landscape')->stream();
         return $pdf->setPaper('A4', 'landscape')->download('#'.$orderDetails->id.' invoice.pdf');
     }
+
+    public function viewOrdersCharts(){
+        $current_month_orders=Order::whereYear('created_at',date('Y'))->whereMonth('created_at',date('m'))->count();
+        $last_month_orders=Order::whereYear('created_at',date('Y'))->whereMonth('created_at',date('m',strtotime('-1 month')))->count();
+        $last_2_last_month_orders=Order::whereYear('created_at',date('Y'))->whereMonth('created_at',date('m',strtotime('-2 month')))->count();
+        $last_3_last_month_orders=Order::whereYear('created_at',date('Y'))->whereMonth('created_at',date('m',strtotime('-3 month')))->count();
+        $orderCount=[$current_month_orders,$last_month_orders,$last_2_last_month_orders,$last_3_last_month_orders];
+        return view('admin.order.view-orders-charts')->with(compact('orderCount'));
+    }
 }

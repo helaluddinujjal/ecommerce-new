@@ -46,7 +46,7 @@
                   <th>url</th>
                   <th>Priority</th>
                   <th>Status</th>
-                  <th>Show Header(By default sow in footer)</th>
+                  <th>Show Header(By default show in footer)</th>
                   <th>Created At</th>
                   <th>Action</th>
                   <th></th>
@@ -70,7 +70,7 @@
                          </td>
                          <td>
                             <a class="updateStatus" href="javascript:void(0)" id="nav_cms_page-{{$cmsPage->id}}" get_id="{{$cmsPage->id}}">
-                             @if ($cmsPage->status==1)
+                             @if ($cmsPage->is_nav==1)
                              <i title="Click to show footer" class="fa fa-toggle-on fa-2x" aria-hidden="true" status="Active"></i>
                              @else
                              <i title="Click to show header" class="fa fa-toggle-off fa-2x" aria-hidden="true" status="Inctive"></i>

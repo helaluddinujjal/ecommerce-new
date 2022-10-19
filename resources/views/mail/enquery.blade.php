@@ -18,7 +18,7 @@
         <tr><td>&nbsp;</td></tr>
         <tr><td>Subject: {{ $subject }}</td></tr>
         <tr><td>&nbsp;</td></tr>
-        <tr><td>Subject: {{ $user_message }}</td></tr>
+        <tr><td>Message: {{ $user_message }}</td></tr>
         <tr><td>&nbsp;</td></tr>
         <tr><td>Thanks & Regards,</td></tr>
         <tr><td>Ecommerce Project Website</td></tr>

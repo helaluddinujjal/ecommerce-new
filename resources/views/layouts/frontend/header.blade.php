@@ -2,7 +2,9 @@
 use App\Section;
     $sections=Section::sections();
    // echo '<pre>';print_r($sections);die;
+    $pages=App\CmsPage::where(['status'=>1,'is_nav'=>1])->orderByRaw('ISNULL(priority),priority ASC')->get();
 @endphp
+
 <header class="header mb-5">
     <!--
     *** TOPBAR ***
@@ -11,7 +13,12 @@ use App\Section;
     <div id="top">
       <div class="container">
         <div class="row">
-          <div class="col-lg-6 offer mb-3 mb-lg-0"><a href="#" class="btn btn-success btn-sm">Offer of the day</a><a href="#" class="ml-1">Get flat 35% off on orders over $50!</a></div>
+          <div class="col-lg-6 offer mb-3 mb-lg-0"><a href="Javascript:void(0)" class="btn btn-success btn-sm">Offer</a>
+          @foreach ($pages as $item)
+          <a href="{{$item->url}}" class="ml-1 mr-1">{{$item->title}}</a>
+          @endforeach
+            
+          </div>
           <div class="col-lg-6 text-center text-lg-right">
             <ul class="menu list-inline mb-0">
               @if (Auth::check())

@@ -18,9 +18,9 @@ class CreateCmsPagesTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('url');
-            $table->string('meta_title');
-            $table->string('meta_description');
-            $table->string('meta_keyward');
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keyward')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->tinyInteger('is_nav')->default(0);
             $table->Integer('priority')->nullable();

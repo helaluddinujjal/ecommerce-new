@@ -127,6 +127,10 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::post('/order-status-update', 'OrderController@updateOrderStatus');
         Route::get('/order-invoice/{id}', 'OrderController@orderInvoice');
         Route::get('/order-pdf/{id}', 'OrderController@orderPdf');
+       
+       //order chart
+       Route::get('view-orders-charts','OrderController@viewOrdersCharts');
+       
         /*
         *******Orders Status
         */
@@ -179,6 +183,9 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::get('users','UserController@users');
         Route::post('/update-status-user', 'UserController@updateUserStatus');
 
+        //user chart
+        Route::get('view-users-charts','UserController@viewUsersCharts');
+        Route::get('view-users-country-charts','UserController@viewUsersCountryCharts');
           /*
         ************Cms Pages
         */
@@ -214,6 +221,7 @@ Route::namespace('Frontend')->group(function(){
     foreach ($cmsPages as $page) {
         Route::get('/'.$page,'CmsController@cmsPage');
     }
+    Route::match(['get','post'],'/contact','CmsController@contact');
     //single product page
     //Route::get('/{section}/{category}/product/{url}', 'ProductController@productDetails')->name('custom_product');
     //  Route::get('/{section}/{category}/product/{url}',['uses'=>'ProductController@productDetails','as'=>'product-details']);

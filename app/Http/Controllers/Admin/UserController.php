@@ -31,4 +31,19 @@ class UserController extends Controller
 
         }
     }
+
+    public function viewUsersCharts(){
+        $current_month_users=User::whereYear('created_at',date('Y'))->whereMonth('created_at',date('m'))->count();
+        $last_month_users=User::whereYear('created_at',date('Y'))->whereMonth('created_at',date('m',strtotime('-1 month')))->count();
+        $last_2_last_month_users=User::whereYear('created_at',date('Y'))->whereMonth('created_at',date('m',strtotime('-2 month')))->count();
+        $last_3_last_month_users=User::whereYear('created_at',date('Y'))->whereMonth('created_at',date('m',strtotime('-3 month')))->count();
+        $userCount=[$current_month_users,$last_month_users,$last_2_last_month_users,$last_3_last_month_users];
+        return view('admin.user.view-users-charts')->with(compact('userCount'));
+    }
+
+    public function viewUsersCountryCharts(){
+        $usersCountry=User::select('country',\DB::raw('count(*) as total'))->groupBy('country')->get()->toArray();
+        return view('admin.user.view-users-country-charts')->with(compact('usersCountry'));
+    }
+
 }

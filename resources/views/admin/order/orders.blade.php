@@ -30,7 +30,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Order List</h3>
+              <h3 class="card-title">Order List | <a href="{{url('admin/view-orders-charts')}}">Order Reports</a></h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

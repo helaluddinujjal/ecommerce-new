@@ -68,8 +68,8 @@ class CmsPageController extends Controller
                 $data['url']=Str::slug($data['title']);
             }
             $rule=[
-                'title'=>'required|regex:/^[A-Za-z- ]+$/',
-                'priority'=>'numeric',
+                'title'=>'required',
+                'priority'=>'numeric|nullable',
                 'url'=>['required','regex:/^[A-Za-z-]+$/',Rule::unique('cms_pages')->where(function($query) use ($data,$cmsPageData){
                     if (!empty($cmsPageData->id)) {
                      return   $query->where('url',$data['url'])->where('id','!=',$cmsPageData->id);
@@ -82,7 +82,6 @@ class CmsPageController extends Controller
             ];
             $customMsg=[
                 'title.required'=>"Cms Page Title must not be empty",
-                'title.regex'=>"Cms Page title formate invalid.only latter and - will allow",
                 'url.regex'=>"Url formate invalid.only latter and - will allow",
                 'url.unique'=>"Url already exists.Please change the Url",
                 'url.required'=>"Url must not be empty",

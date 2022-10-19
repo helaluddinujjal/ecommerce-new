@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Order;
+use App\ProductView;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
@@ -14,9 +17,16 @@ class AdminController extends Controller
 {
     //dashboard
     public function dashboard(){
+        $totalOrder=Order::select('id')->count();
+        $totalEarn=Order::sum('total');
+        $totalUser=Admin::count();
+        $totalPendingOrder=Order::where('order_status','Pending')->count();
+        $usersCountry=User::select('country',\DB::raw('count(*) as total'))->groupBy('country')->get()->toArray();
+        //$browsers=ProductView::
+      $data=["totalOrder"=>$totalOrder,"totalEarn"=>$totalEarn,"totalUser"=>$totalUser,"totalPendingOrder"=>$totalPendingOrder,"usersCountry"=>$usersCountry];
         Session::forget('page');
         Session::put('page','dashboard');
-        return view('admin.dashboard');
+        return view('admin.dashboard',compact('data'));
     }
 
     //settings
@@ -135,5 +145,6 @@ class AdminController extends Controller
         return redirect('admin');
     }
 
+    
 
 }

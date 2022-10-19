@@ -30,7 +30,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">User List</h3>
+              <h3 class="card-title">User List  | <a href="{{url('admin/view-users-charts')}}">User Reports</a></h3>
               <a href="{{url('admin/add-edit-user')}}" class="btn btn-success float-right">Add User</a>
               <div class="mt-5">
                 @include('include.session_msg')

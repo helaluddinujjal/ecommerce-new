@@ -217,7 +217,7 @@
                                     <p></p>
                                     <h4>Product details</h4>
                                     @if (!empty($productDetails->description))
-                                        <p>{{ $productDetails->description }}</p>
+                                        <p>{!! $productDetails->description !!}</p>
                                     @else
                                         <p>empty</p>
                                     @endif
@@ -304,7 +304,7 @@
                                     <p></p>
                                     <h4>Wash and Care</h4>
                                     @if (!empty($productDetails->wash_care))
-                                        <p>{{ $productDetails->wash_care }}</p>
+                                        <p>{!! $productDetails->wash_care !!}</p>
                                     @else
                                         <p>empty</p>
                                     @endif
@@ -319,6 +319,7 @@
                             <hr>
                             <div class="social">
                                 <h4>Show it to your friends</h4>
+                                <div class="addthis_inline_share_toolbox"></div>
                                 <p><a href="#" class="external facebook"><i class="fa fa-facebook"></i></a><a
                                         href="#" class="external gplus"><i class="fa fa-google-plus"></i></a><a
                                         href="#" class="external twitter"><i class="fa fa-twitter"></i></a><a
@@ -504,4 +505,10 @@
             </div>
         </div>
     </div>
+     
 @endsection
+@push('script')
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-634e1e626ea53d5c"></script>
+
+@endpush
