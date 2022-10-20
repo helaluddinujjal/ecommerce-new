@@ -4,8 +4,15 @@ var Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 5000
 });
+host = window.location.host;
+    if (host == 'localhost') {
+        var url = 'http://localhost/ecommerce-new/public';
+    }else{
+        var url = 'http://'+host;
+    }
+    //alert(url)
 $(document).ready(function () {
-
+    
     //coupon code
     $(document).on('click', "#manual_coupon", function () {
         $("#coupon_code_field").fadeIn('slow');
@@ -20,7 +27,7 @@ $(document).ready(function () {
         //alert(current_pass)
         $.ajax({
             type: "post",
-            url: "/admin/check-password",
+            url: url+"/admin/check-password",
             data: {'current_pass':current_pass},
             success: function (response) {
                 if (response=='true') {
@@ -43,7 +50,7 @@ $(document).ready(function () {
     //     // alert(section_id)
     //     $.ajax({
     //     type:'post',
-    //     url: "/admin/update-section-status",
+    //     url: url+"/admin/update-section-status",
     //     data:{status:status,section_id:section_id},
     //     success:function(res){
     //         // alert(res.section_id)
@@ -81,14 +88,14 @@ $(document).ready(function () {
             }
         })
     }) */
-
+    
     //category append level
     $('#section_id').change(function () {
+
         var section_id = $(this).val()
-        //alert(section_id)
         $.ajax({
             type: 'post',
-            url: '/admin/append-category-level',
+            url: url+'/admin/append-category-level',
             data: { section_id: section_id },
             success: function (res) {
                 $('#append-category-lavel').html(res)
@@ -104,9 +111,10 @@ $(document).ready(function () {
         var get_id = $(this).attr('get_id');
         var name = $(this).attr('id');
         name = name.split('-', 1)
+        
         $.ajax({
             type: 'post',
-            url: '/admin/update-status-' + name,
+            url: url+'/admin/update-status-' + name,
             data: { status: status, id: get_id },
             success: function (res) {
                 //alert(res.status)
@@ -144,7 +152,7 @@ $(document).ready(function () {
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "/admin/delete-" + record + '/' + recorded;
+                window.location.href = url+"/admin/delete-" + record + '/' + recorded;
             }
         })
     })
@@ -201,7 +209,7 @@ $(document).ready(function () {
         // alert(getData)
         $.ajax({
             type: 'post',
-            url: '/admin/check-attribute-code',
+            url: url+'/admin/check-attribute-code',
             data: { getData: getData, getId: getId, getSize: getSize },
             success: function (res) {
                 //alert(res.status)
@@ -226,7 +234,7 @@ $(document).ready(function () {
         // alert(getData)
         $.ajax({
             type: 'post',
-            url: '/admin/check-filter-value',
+            url: url+'/admin/check-filter-value',
             data: { getData: getData, getId: getId },
             success: function (res) {
                 //alert(res.status)
@@ -317,7 +325,7 @@ function checkPass() {
         //alert(current_pass)
         $.ajax({
             type: "post",
-            url: "/admin/check-password",
+            url: url+"/admin/check-password",
             data: { 'current_pass': current_pass },
             success: function (response) {
                 if (response == 'true') {
@@ -377,7 +385,7 @@ function checkSlug() {
         //alert(current_pass)
         $.ajax({
             type: "post",
-            url: "/admin/check-" + getPath,
+            url: url+"/admin/check-" + getPath,
             data: { 'getId': getId, 'getSlug': getSlug },
             success: function (response) {
                 // alert(response.countSlug)
@@ -411,7 +419,7 @@ function checkCode() {
         //alert(current_pass)
         $.ajax({
             type: "post",
-            url: "/admin/check-" + getPath,
+            url: url+"/admin/check-" + getPath,
             data: { 'getId': getId, 'getCode': getCode },
             success: function (response) {
                 // alert(response.countSlug)
@@ -444,7 +452,7 @@ function getState(country_id) {
     }
     $.ajax({
         type: 'post',
-        url: '/admin/get-state',
+        url: url+'/admin/get-state',
         data: { country_id: country_id },
         success: function (res) {
             $("#stateSection").find("#state:visible").find('option').remove().end()
@@ -473,7 +481,7 @@ function getCity(state_id) {
     }
     $.ajax({
         type: 'post',
-        url: '/admin/get-cities',
+        url: url+'/admin/get-cities',
         data: { state_id: state_id },
         success: function (res) {
             $("#citySection").find("#city:visible").find('option').remove().end()

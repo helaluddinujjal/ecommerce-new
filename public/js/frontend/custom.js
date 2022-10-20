@@ -12,6 +12,12 @@ var DeleteToast = Swal.mixin({
     cancelButtonColor: '#d33',
     confirmButtonText: 'Yes, delete it!'
 })
+host = window.location.host;
+    if (host == 'localhost') {
+        var url = 'http://localhost/ecommerce-new/public';
+    }else{
+        var url = 'http://'+host;
+    }
 $(document).ready(function () {
     $.ajaxSetup({
         headers: {
@@ -26,7 +32,7 @@ $(document).ready(function () {
         if (page.length) {
             $.ajax({
                 type: 'get',
-                url: '/',
+                url: url+'/',
                 data: { page: page },
                 success: function (res) {
                     $('#home_pagi').hide();
@@ -62,7 +68,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'get',
-            url: '/' + sec_url + '/' + cat_url,
+            url: url+'/' + sec_url + '/' + cat_url,
             data: { page: page, sec: sec_url, cat: cat_url, sort_by: sort_by, fabric_filter: fabric_filter, sleeve_filter: sleeve_filter, pattern_filter: pattern_filter, fit_filter: fit_filter, occation_filter: occation_filter, brand_filter: brand_filter },
             success: function (res) {
                 $('.show_product').html('');
@@ -92,7 +98,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'get',
-            url: '/' + sec_url + '/' + cat_url,
+            url: url+'/' + sec_url + '/' + cat_url,
             data: { sec: sec_url, cat: cat_url, sort_by: sort_by, fabric_filter: fabric_filter, sleeve_filter: sleeve_filter, pattern_filter: pattern_filter, fit_filter: fit_filter, occation_filter: occation_filter, brand_filter: brand_filter },
             success: function (res) {
                 $('.show_product').html('');
@@ -121,7 +127,7 @@ $(document).ready(function () {
         var brand_filter = get_filter('brand');
         $.ajax({
             type: 'get',
-            url: '/' + sec_url + '/' + cat_url,
+            url: url+'/' + sec_url + '/' + cat_url,
             data: { sec: sec_url, cat: cat_url, sort_by: sort_by, fabric_filter: fabric_filter, sleeve_filter: sleeve_filter, pattern_filter: pattern_filter, fit_filter: fit_filter, occation_filter: occation_filter, brand_filter: brand_filter },
             success: function (res) {
                 $('.show_product').html('');
@@ -150,7 +156,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'get',
-            url: '/' + sec_url + '/' + cat_url,
+            url: url+'/' + sec_url + '/' + cat_url,
             data: { sec: sec_url, cat: cat_url, sort_by: sort_by, fabric_filter: fabric_filter, sleeve_filter: sleeve_filter, pattern_filter: pattern_filter, fit_filter: fit_filter, occation_filter: occation_filter, brand_filter: brand_filter },
             success: function (res) {
                 $('.show_product').html(res);
@@ -179,7 +185,7 @@ $(document).ready(function () {
         $.ajax({
 
             type: 'get',
-            url: '/' + sec_url + '/' + cat_url,
+            url: url+'/' + sec_url + '/' + cat_url,
             data: { sec: sec_url, cat: cat_url, sort_by: sort_by, fabric_filter: fabric_filter, sleeve_filter: sleeve_filter, pattern_filter: pattern_filter, fit_filter: fit_filter, occation_filter: occation_filter, brand_filter: brand_filter },
             success: function (res) {
                 $('.show_product').html(res);
@@ -208,7 +214,7 @@ $(document).ready(function () {
         $.ajax({
 
             type: 'get',
-            url: '/' + sec_url + '/' + cat_url,
+            url: url+'/' + sec_url + '/' + cat_url,
             data: { sec: sec_url, cat: cat_url, sort_by: sort_by, fabric_filter: fabric_filter, sleeve_filter: sleeve_filter, pattern_filter: pattern_filter, fit_filter: fit_filter, occation_filter: occation_filter, brand_filter: brand_filter },
             success: function (res) {
                 $('.show_product').html(res);
@@ -237,7 +243,7 @@ $(document).ready(function () {
         $.ajax({
 
             type: 'get',
-            url: '/' + sec_url + '/' + cat_url,
+            url: url+'/' + sec_url + '/' + cat_url,
             data: { sec: sec_url, cat: cat_url, sort_by: sort_by, fabric_filter: fabric_filter, sleeve_filter: sleeve_filter, pattern_filter: pattern_filter, fit_filter: fit_filter, occation_filter: occation_filter, brand_filter: brand_filter },
             success: function (res) {
                 $('.show_product').html(res);
@@ -265,7 +271,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'get',
-            url: '/' + sec_url + '/' + cat_url,
+            url: url+'/' + sec_url + '/' + cat_url,
             data: { sec: sec_url, cat: cat_url, sort_by: sort_by, fabric_filter: fabric_filter, sleeve_filter: sleeve_filter, pattern_filter: pattern_filter, fit_filter: fit_filter, occation_filter: occation_filter, brand_filter: brand_filter },
             success: function (res) {
                 $('.show_product').html(res);
@@ -297,7 +303,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'get',
-            url: '/' + sec_url + '/' + cat_url,
+            url: url+'/' + sec_url + '/' + cat_url,
             data: { sec: sec_url, cat: cat_url, sort_by: sort_by, fabric_filter: fabric_filter, sleeve_filter: sleeve_filter, pattern_filter: pattern_filter, fit_filter: fit_filter, occation_filter: occation_filter, brand_filter: brand_filter },
             success: function (res) {
                 $('.show_product').html(res);
@@ -351,7 +357,7 @@ $(document).ready(function () {
         var productId = $(this).attr('product_id')
         $.ajax({
             type: 'post',
-            url: '/get-attr-price',
+            url: url+'/get-attr-price',
             data: { proSize: proSize, productId: productId },
             success: function (res) {
                 if (res.productData.dis_price > 0) {
@@ -395,7 +401,7 @@ $(document).ready(function () {
         } else {
             $.ajax({
                 type: 'post',
-                url: '/cart-qty-updated',
+                url: url+'/cart-qty-updated',
                 data: { value: value, cartId: cartId },
                 success: function (res) {
                     if (res.status === false) {
@@ -429,7 +435,7 @@ $(document).ready(function () {
 
                 $.ajax({
                     type: 'post',
-                    url: '/cart-item-deleted',
+                    url: url+'/cart-item-deleted',
                     data: { cartId: cartId },
                     success: function (res) {
                         if (res.status === true) {
@@ -485,7 +491,7 @@ $(document).ready(function () {
         }
         $.ajax({
             type: 'post',
-            url: '/get-state',
+            url: url+'/get-state',
             data: { country_id: country_id },
             success: function (res) {
                 main_div.find("#countryEmoji:visible").html("<i>" + res.emoji + "</i>")
@@ -548,7 +554,7 @@ $(document).ready(function () {
         }
         $.ajax({
             type: 'post',
-            url: '/get-cities',
+            url: url+'/get-cities',
             data: { state_id: state_id },
             success: function (res) {
                 if (res.cities.length) {
@@ -584,7 +590,7 @@ $(document).ready(function () {
             if (coupon_code.length) {
                 $.ajax({
                     type: 'post',
-                    url: '/apply-coupon',
+                    url: url+'/apply-coupon',
                     data: { coupon_code: coupon_code },
                     success: function (res) {
                         if (res.status == 'true') {
@@ -684,7 +690,7 @@ $(document).ready(function () {
                         }
                         $.ajax({
                             type: 'post',
-                            url: '/get-country-pincode',
+                            url: url+'/get-country-pincode',
                             data: { country: sessionStorage.getItem("ch_country"), ch_pin: ch_pin, pincode: sessionStorage.getItem("ch_pincode") },
                             success: function (res) {
                                 if (res.status === false) {
@@ -815,7 +821,7 @@ $(document).ready(function () {
         var del_add_id = $(this).attr('data')
         $.ajax({
             type: 'post',
-            url: '/delivery-address',
+            url: url+'/delivery-address',
             data: { del_add_id: del_add_id },
             success: function (res) {
                 if (res.status === false) {
@@ -876,7 +882,7 @@ $(document).ready(function () {
             var pincode = $('#pincode_box').val() == undefined ? '' : $('#pincode_box').val();
             $.ajax({
                 type: 'post',
-                url: '/get-country-pincode',
+                url: url+'/get-country-pincode',
                 data: { country: country, ch_pin: ch_pin, pincode: pincode },
                 success: function (res) {
                     if (res.status === false) {
@@ -909,7 +915,7 @@ $(document).ready(function () {
 function deliveryCharges(country) {
     $.ajax({
         type: 'post',
-        url: '/get-delivery-charges',
+        url: url+'/get-delivery-charges',
         data: { country: country },
         success: function (res) {
             if (res.msg) {
@@ -936,7 +942,7 @@ function deliveryByPincode(country, state, city) {
     alert(country + state + city)
     $.ajax({
         type: 'post',
-        url: '/get-delivery-payment-method-by-pincode',
+        url: url+'/get-delivery-payment-method-by-pincode',
         data: { country: country, state: state, city: city },
         success: function (res) {
             if (res.msg) {
